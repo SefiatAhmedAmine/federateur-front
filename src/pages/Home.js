@@ -13,21 +13,31 @@ const Home = () => {
     window.localStorage.setItem('user', JSON.stringify(
         {
             "id": 1,
-            "firstname": "commodo",
-            "lastname": "laborum",
-            "phoneNumber": "+212673904066",
-            "longitude": -7.860166348697782E7,
-            "latitude": -7.846050072630888E7,
-            "email": "sdelaboudi@gmail.com",
-            "password": "hello",
+            "firstname": "Oussama",
+            "lastname": "Aarab",
+            "phoneNumber": "0624085197",
+            "longitude": 6.3755290673898965E7,
+            "latitude": -4.356204952808507E7,
+            "email": "oussama_aarab@um5.ac.ma",
+            "password": "$2a$10$4f3fZWXHkRLybyg61e4D..7xMH9xg6jX21P0t3I/UiGm/MSejjpMC",
             "roles": [
-                "ADMIN"
-            ]
+                "USER"
+            ],
+            "accountNonExpired": true,
+            "accountNonLocked": true,
+            "credentialsNonExpired": true,
+            "authorities": [
+                {
+                    "authority": "USER"
+                }
+            ],
+            "username": "oussama_aarab@um5.ac.ma",
+            "enabled": true
         }
     ));
     return (
         <>
-            <h2>Bonjour</h2>
+            <h2>Home</h2>
         </>
     );
 }
