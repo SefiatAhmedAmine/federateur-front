@@ -48,7 +48,6 @@ export default class Account extends Component {
 
 
     render() {
-    var profile = this.state.user;
 
         return (
             <>
@@ -67,7 +66,7 @@ export default class Account extends Component {
                                 <li class="list-group-item text-muted">Posts <i class="fa fa-dashboard fa-1x"></i></li>
                                 {
                                     this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
-                                        const { id, title, description, available } = post;
+                                        const {  title, available } = post;
                                         if (available) {
                                             return (
                                                 <li class="list-group-item text-right">
