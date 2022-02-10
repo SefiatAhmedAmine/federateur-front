@@ -41,10 +41,9 @@ export default class Account extends Component {
     submit = (event) => {
          console.log('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response);
          axios.post('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response).then((res) => {
-             this.state.response = res.data;
+            this.setState({ response: res.data });    
              console.log(res.data);
          })
-         this.state.response.message="";
     }
 
 
