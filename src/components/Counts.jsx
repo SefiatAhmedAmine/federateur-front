@@ -4,7 +4,7 @@ const  Counts = () => {
     return (
         <>
         {/* <!-- ======= Counts Section =======--> */}
-        <section id="counts" className="counts">
+                    <section id="counts" className="counts">
                         <div className="container">
 
                             <div className="row">
@@ -45,6 +45,7 @@ const  Counts = () => {
 
                         </div>
                     </section>{/* <!--End Counts Section--> */}
+                    
         </>
     );
 }
