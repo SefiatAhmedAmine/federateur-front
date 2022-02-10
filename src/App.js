@@ -1,5 +1,6 @@
 import './App.css';
 import Home from './pages/Home';
+import Post from './components/Post';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
             <Route>404!</Route>
           </Routes>
         </BrowserRouter> */}
-        <Home/>
+        <Post/>
     </div>
   );
 }
