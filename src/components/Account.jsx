@@ -24,6 +24,14 @@ export default class extends Component {
         window.localStorage.setItem('post', JSON.stringify(smg));
     }
 
+    delete(post) {
+        axios.delete('https://fedback.azurewebsites.net/v1/api/posts/' + post.id + '/delete')
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch(err => console.log(err));
+    }
+
 
     render() {
         return (
@@ -40,7 +48,7 @@ export default class extends Component {
 
 
                             <ul class="list-group">
-                                <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+                                <li class="list-group-item text-muted">Posts <i class="fa fa-dashboard fa-1x"></i></li>
                                 {
                                     this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
                                         const { id, title, description, available } = post;
@@ -52,7 +60,7 @@ export default class extends Component {
                                                     </span>
                                                     <br />
                                                     <a type="button" class="btn btn-primary" href="/editPost" onClick={() => { this.savePost(post) }} >Modifier</a>
-                                                    <a type="button" class="btn btn-danger">supprimer</a>
+                                                    <a type="button" class="btn btn-danger" onClick={() => { this.delete(post) }} >supprimer</a>
                                                 </li>
                                             )
                                         }

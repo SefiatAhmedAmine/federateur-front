@@ -5,10 +5,10 @@ const Header = () =>{
                // <!-- ======= Header =======--> */}
                <header id="header" className="fixed-top">
                <div className="container d-flex align-items-center">
-                   <h1 className="logo me-auto"><a href="/">Medilab</a></h1>
+                   <h1 className="logo me-auto"><a href="/">Donation social media platform</a></h1>
                    <nav id="navbar" className="navbar order-last order-lg-0">
                        <ul>
-                           <li><a className="nav-link scrollto active" href="/">Home</a></li>
+                           <li><a className="nav-link scrollto" href="/">Home</a></li>
                            <li><a className="nav-link scrollto" href="/about">About</a></li>
                            <li><a className="nav-link scrollto" href="/categories">Catégories</a></li>
                            <li><a className="nav-link scrollto" href="/account">Mon compte</a></li>
@@ -19,7 +19,7 @@ const Header = () =>{
                    </nav>
                    {/* <!-- .navbar--> */}
 
-                   <a href="#appointment" className="appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span> Appointment</a>
+                   <a href="/createPost" className="appointment-btn scrollto"><span className="d-none d-md-inline">Créer </span> un nouveau poste</a>
 
                </div>
            </header>
