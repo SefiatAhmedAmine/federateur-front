@@ -19,7 +19,7 @@ const Header = () =>{
                    </nav>
                    {/* <!-- .navbar--> */}
 
-                   <a href="/createPost" className="appointment-btn scrollto"><span className="d-none d-md-inline">Créer </span> un nouveau poste</a>
+                   <a href="/createdPost" className="appointment-btn scrollto"><span className="d-none d-md-inline">Créer </span> un nouveau poste</a>
 
                </div>
            </header>

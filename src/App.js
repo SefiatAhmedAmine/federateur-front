@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Post from './components/Post';
 import EditPost from './components/EditPost';
 import Home from './pages/Home';
+import CreatedPost from './components/CreatedPost'
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
           <Route path="/contact" element={<Contact/>} />
           <Route path="/Post" element={<Post />} /> 
           <Route path="/account" element={<Account />} /> 
-          <Route path="/editPost" element={<EditPost />} /> 
+          <Route path="/editPost" element={<EditPost />} />
+          <Route path="/createdPost" element={<CreatedPost />} />  
           <Route>404!</Route>
         </Routes>
       </BrowserRouter>
