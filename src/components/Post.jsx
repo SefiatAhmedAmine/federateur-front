@@ -6,14 +6,22 @@ export default class Post extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            product: {}
+            allCategories: [],
+            post: {}
         };
-        this.setState({product:Post.loadState()});
-        console.log(this.serializedState);
+        let p = Post.loadPost();
+        let cat = Post.loadCategories();
+        this.state.post = p;
+        this.state.allCategories = cat;
+        console.log(this.state)
     }
-    static loadState() {
+    static loadPost() {
         return JSON.parse(window.localStorage.getItem('post'));
     }
+    static loadCategories() {
+        return JSON.parse(window.localStorage.getItem('categories'));
+    }
+
     render() {
         return (
             <>
@@ -27,17 +35,18 @@ export default class Post extends Component {
                                     {/*  <!-- Post header--> */}
                                     <header className="mb-4">
                                         {/*  <!-- Post title--> */}
-                                        <h1 className="fw-bolder mb-1">name of post </h1>
+                                        <h1 className="fw-bolder mb-1">{this.state.post.title}</h1>
+                                        {this.state.post.type}
                                         {/*  <!-- Post meta content--> */}
-                                        <div className="text-muted fst-italic mb-2">Date </div>
+                                        <div className="text-muted fst-italic mb-2">{this.state.post.createdBy.firstname} {this.state.post.createdBy.lastname} le {this.state.post.createdAt} </div>
                                         {/*  <!-- Post categories--> */}
-                                        <a className="badge bg-secondary text-decoration-none link-light" href="#!"> categorie </a>
+                                        <a className="badge bg-secondary text-decoration-none link-light" href="#!"> {this.state.post.category.name} </a>
                                     </header>
                                     {/*  <!-- Preview image figure--> */}
                                     <figure className="mb-4"><img className="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
                                     {/*  <!-- Post content--> */}
                                     <section className="mb-5">
-                                        <p className="fs-5 mb-4">description</p>
+                                        <p className="fs-5 mb-4">{this.state.post.description}</p>
                                     </section>
                                 </article>
                                 {/*  <!-- Comments section--> */}
@@ -85,37 +94,33 @@ export default class Post extends Component {
                             </div>
                             {/*  <!-- Side widgets--> */}
                             <div className="col-lg-4">
-                                {/*  <!-- Search widget--> */}
-                                <div className="card mb-4">
-                                    <div className="card-header">Search</div>
-                                    <div className="card-body">
-                                        <div className="input-group">
-                                            <input className="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                            <button className="btn btn-primary" id="button-search" type="button">Go!</button>
-                                        </div>
-                                    </div>
-                                </div>
                                 {/*  <!-- Categories widget--> */}
                                 <div className="card mb-4">
                                     <div className="card-header">Categories</div>
                                     <div className="card-body">
                                         <div className="row">
-                                            <div className="col-sm-6">
+                                            <div className="col-sm-4">
                                                 <ul className="list-unstyled mb-0">
-                                                    <li><a href="#!">Web Design</a></li>
-                                                    <li><a href="#!">HTML</a></li>
-                                                    <li><a href="#!">Freebies</a></li>
-                                                </ul>
-                                            </div>
-                                            <div className="col-sm-6">
-                                                <ul className="list-unstyled mb-0">
-                                                    <li><a href="#!">JavaScript</a></li>
-                                                    <li><a href="#!">CSS</a></li>
-                                                    <li><a href="#!">Tutorials</a></li>
+                                                    {
+                                                        this.state.allCategories.map((category) => {
+                                                            const { id, name } = category;
+                                                            return (
+                                                                <li key={id}>
+                                                                    <a href="/">{name}</a>
+                                                                </li>
+                                                            );
+                                                        }
+                                                        )
+                                                    }
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div>
+                                    <a href={`https://wa.me/${this.state.post.createdBy.phoneNumber}`}>Send whatsapp</a>
+                                    <br />
+                                    <a href={`mailto : ${this.state.post.createdBy.email}`}>send email</a>
                                 </div>
                             </div>
                         </div>

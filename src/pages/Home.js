@@ -12,6 +12,7 @@ import Post from '../components/Post';
 const Home = () => {
     return (
         <>
+        <main className="main">
             <Departement />
             {/* <Header />
             <Hero />
@@ -22,6 +23,7 @@ const Home = () => {
             <Services/>
             <Post/>
             <Doctors/> */}
+        </main>
         </>
     );
 }
