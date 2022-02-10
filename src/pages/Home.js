@@ -12,18 +12,16 @@ import Post from '../components/Post';
 const Home = () => {
     return (
         <>
-        <main className="main">
+            <WhyUs />
             <Departement />
             {/* <Header />
             <Hero />
-            <WhyUs />
         <Appointment /> */}
             {/* <Counts/>
             <Contact/>
             <Services/>
             <Post/>
             <Doctors/> */}
-        </main>
         </>
     );
 }

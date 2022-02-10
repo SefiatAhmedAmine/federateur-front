@@ -105,9 +105,12 @@ export default class Post extends Component {
                                                         this.state.allCategories.map((category) => {
                                                             const { id, name } = category;
                                                             return (
-                                                                <li key={id}>
-                                                                    <a href="/">{name}</a>
-                                                                </li>
+                                                                <>
+                                                                    <li key={id} className="mt-2 mb-3 my-12 ">
+                                                                        <a href="/">{name}</a>
+                                                                    </li>
+                                                                    <hr />
+                                                                </>
                                                             );
                                                         }
                                                         )
@@ -117,10 +120,13 @@ export default class Post extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <a href={`https://wa.me/${this.state.post.createdBy.phoneNumber}`}>Send whatsapp</a>
-                                    <br />
-                                    <a href={`mailto : ${this.state.post.createdBy.email}`}>send email</a>
+                                <div className='container '>
+                                    <div className="mb-3">
+                                        <a href={`https://wa.me/${this.state.post.createdBy.phoneNumber}`} className='whatsapp'>Send whatsapp</a>
+                                    </div>
+                                    <div className="mb-3">
+                                        <a href={`mailto:${this.state.post.createdBy.email}`} className="btn btn-secondary btn-lg">send email</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
