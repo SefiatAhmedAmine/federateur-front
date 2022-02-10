@@ -5,8 +5,8 @@ export default class extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            allPosts: [],
-            user: {}
+            user: {},
+            allPosts: []
         };
         this.state.user = JSON.parse(window.localStorage.getItem('user'));
         this.charge();
@@ -32,8 +32,25 @@ export default class extends Component {
             .catch(err => console.log(err));
     }
 
+    change = (event) => {
+        console.log(event);
+        this.setState({ [event.target.name]: event.target.value });
+        console.log(this.state);
+    }
+    
+    submit = (event) => {
+         console.log('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response);
+         axios.post('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response).then((res) => {
+             this.state.response = res.data;
+             console.log(res.data);
+         })
+         this.state.response.message="";
+    }
+
 
     render() {
+    var profile = this.state.user;
+
         return (
             <>
                 <div class="container bootstrap snippet">
@@ -74,19 +91,19 @@ export default class extends Component {
                             <div class="tab-content">
                                 <div class="tab-pane active" id="home">
                                     <hr />
-                                    <form class="form" action="##" method="post" id="registrationForm">
+                                    <form class="form" onSubmit={this.submit} onChange={this.change}>
                                         <div class="form-group">
 
                                             <div class="col-xs-6">
                                                 <label for="first_name"><h4>First name</h4></label>
-                                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any." />
+                                                <input type="text" class="form-control" name="user.firstname" id="first_name" placeholder="first name" defaultValue={this.state.user.firstname} title="enter your first name if any." />
                                             </div>
                                         </div>
                                         <div class="form-group">
 
                                             <div class="col-xs-6">
                                                 <label for="last_name"><h4>Last name</h4></label>
-                                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any." />
+                                                <input type="text" class="form-control" name="user.lastname" id="last_name" placeholder="last name" defaultValue={this.state.user.lastname} title="enter your last name if any." />
                                             </div>
                                         </div>
 
@@ -94,7 +111,7 @@ export default class extends Component {
 
                                             <div class="col-xs-6">
                                                 <label for="phone"><h4>Phone</h4></label>
-                                                <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any." />
+                                                <input type="text" class="form-control" name="user.phoneNumber" id="phone" defaultValue={this.state.user.phoneNumber} placeholder="enter phone" title="enter your phone number if any." />
                                             </div>
                                         </div>
 
@@ -102,14 +119,14 @@ export default class extends Component {
 
                                             <div class="col-xs-6">
                                                 <label for="email"><h4>Email</h4></label>
-                                                <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email." />
+                                                <input type="email" class="form-control" name="user.email" id="email" placeholder="you@email.com" defaultValue={this.state.user.email} title="enter your email." />
                                             </div>
                                         </div>
                                         <div class="form-group">
 
                                             <div class="col-xs-6">
                                                 <label for="password"><h4>Password</h4></label>
-                                                <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password." />
+                                                <input type="password" class="form-control" name="user.password" id="password" placeholder="password" defaultValue={this.state.user.password} title="enter your password." />
                                             </div>
                                         </div>
                                         <div class="form-group">
