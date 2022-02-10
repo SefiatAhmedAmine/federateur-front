@@ -12,16 +12,7 @@ import Post from '../components/Post';
 const Home = () => {
     return (
         <>
-            <WhyUs />
-            <Departement />
-            {/* <Header />
-            <Hero />
-        <Appointment /> */}
-            {/* <Counts/>
-            <Contact/>
-            <Services/>
-            <Post/>
-            <Doctors/> */}
+            <h2>Bonjour</h2>
         </>
     );
 }

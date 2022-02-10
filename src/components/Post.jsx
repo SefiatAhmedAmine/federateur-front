@@ -7,13 +7,46 @@ export default class Post extends Component {
         super(props);
         this.state = {
             allCategories: [],
-            post: {}
+            post: {},
+            response: {
+                "id": 62468377,
+                "respondedBy": {},
+                "verified": false,
+                "message": ""
+            }
         };
+
         let p = Post.loadPost();
         let cat = Post.loadCategories();
         this.state.post = p;
         this.state.allCategories = cat;
         console.log(this.state)
+    }
+    change = (event) => {
+        console.log(event.target.name)
+        this.setState({ [event.target.name]: event.target.value });
+        this.state.response.respondedBy = {
+            "id": 1,
+            "firstname": "commodo",
+            "lastname": "laborum",
+            "phoneNumber": "+212673904066",
+            "longitude": -7.860166348697782E7,
+            "latitude": -7.846050072630888E7,
+            "email": "sdelaboudi@gmail.com",
+            "password": "hello",
+            "roles": [
+                "ADMIN"
+            ]
+        };
+    }
+    
+    submit = (event) => {
+         console.log('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response);
+         axios.post('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response).then((res) => {
+             this.state.response = res.data;
+             console.log(res.data);
+         })
+         this.state.response.message="";
     }
     static loadPost() {
         return JSON.parse(window.localStorage.getItem('post'));
@@ -53,39 +86,16 @@ export default class Post extends Component {
                                 <section className="mb-5">
                                     <div className="card bg-light">
                                         <div className="card-body">
-                                            {/*  <!-- Comment form--> */}
-                                            <form className="mb-4"><textarea className="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-                                            {/*  <!-- Comment with nested comments--> */}
-                                            <div className="d-flex mb-4">
-                                                {/*  <!-- Parent comment--> */}
-                                                <div className="flex-shrink-0"><img className="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                                <div className="ms-3">
-                                                    <div className="fw-bold">Commenter Name</div>
-                                                    If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                                    {/*  <!-- Child comment 1--> */}
-                                                    <div className="d-flex mt-4">
-                                                        <div className="flex-shrink-0"><img className="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                                        <div className="ms-3">
-                                                            <div className="fw-bold">Commenter Name</div>
-                                                            And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
+                                            <div class="chat-message clearfix">
+                                                <div class="input-group mb-0">
+                                                    <div onChange={this.change} >
+                                                        <textarea type="text" class="form-control" placeholder="Enter text here..." name="response.message"  rows="5" cols="90"></textarea>
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-send">
+                                                                <button className='btn-block btn btn-primary' onClick={this.submit}>Envoyer une réponse au proprietaire du post </button>
+                                                            </i></span>
                                                         </div>
                                                     </div>
-                                                    {/*  <!-- Child comment 2--> */}
-                                                    <div className="d-flex mt-4">
-                                                        <div className="flex-shrink-0"><img className="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                                        <div className="ms-3">
-                                                            <div className="fw-bold">Commenter Name</div>
-                                                            When you put money directly to a problem, it makes a good headline.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {/*  <!-- Single comment--> */}
-                                            <div className="d-flex">
-                                                <div className="flex-shrink-0"><img className="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                                <div className="ms-3">
-                                                    <div className="fw-bold">Commenter Name</div>
-                                                    When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
                                                 </div>
                                             </div>
                                         </div>
