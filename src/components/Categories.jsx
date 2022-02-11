@@ -36,7 +36,7 @@ export default class Categories extends Component {
             .catch(err => console.log(err));
     }
 
-    Posts = this.state.allPosts.map((post) => {
+    Posts = this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
         const { id, title, available, description } = post;
         if (available) {
             return (
@@ -50,11 +50,31 @@ export default class Categories extends Component {
                     </div>
                 </div>
             )
-        }else{
-            return(
+        } else {
+            return (
                 <></>
             )
         }
+    }
+    )
+
+    categories = this.state.allCategories && Object.values(this.state.allCategories).map((category) => {
+        const { id, name, description } = category;
+        return (
+            <button className="nav-link active show" data-bs-toggle="tab" onClick={() => { this.chargePosts({ id, name, description }) }}>
+                <li className="nav-item" key={id}>
+                    <div className="card-body ">
+                        <div className="mb-3">
+                            <span className="display-6 fw-bold">{name}</span>
+                            {/* <span className="text-muted">/ mo.</span> */}
+                        </div>
+                        <div className="small fw-bold text-muted">{description}</div>
+
+                    </div>
+                </li>
+                <hr />
+            </button>
+        )
     }
     )
 
@@ -75,25 +95,7 @@ export default class Categories extends Component {
 
                                 <ul className="nav nav-tabs flex-column">
                                     {
-                                        this.state.allCategories.map((category) => {
-                                            const { id, name, description } = category;
-                                            return (
-                                                <button className="nav-link active show" data-bs-toggle="tab" onClick={() => { this.chargePosts({ id, name, description }) }}>
-                                                    <li className="nav-item" key={id}>
-                                                        <div className="card-body ">
-                                                            <div className="mb-3">
-                                                                <span className="display-6 fw-bold">{name}</span>
-                                                                {/* <span className="text-muted">/ mo.</span> */}
-                                                            </div>
-                                                            <div className="small fw-bold text-muted">{description}</div>
-
-                                                        </div>
-                                                    </li>
-                                                    <hr />
-                                                </button>
-                                            )
-                                        }
-                                        )
+                                        this.categories
                                     }
                                 </ul>
 
