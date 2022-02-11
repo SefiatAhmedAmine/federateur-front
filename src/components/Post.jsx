@@ -95,15 +95,9 @@ export default class Post extends Component {
                                             <div className="chat-message clearfix">
                                                 <div className="input-group mb-0">
                                                     <div onChange={this.change} >
-<<<<<<< HEAD
-                                                        <textarea type="text" class="form-control" placeholder="Enter text here..." name="response.message" rows="5" cols="90"></textarea>
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i class="fa fa-send">
-=======
                                                         <textarea type="text" className="form-control" placeholder="Enter text here..." name="response.message"  rows="5" cols="90"></textarea>
                                                         <div className="input-group-prepend">
                                                             <span className="input-group-text"><i className="fa fa-send">
->>>>>>> c5b568d (Title)
                                                                 <button className='btn-block btn btn-primary' onClick={this.submit}>Envoyer une réponse au proprietaire du post </button>
                                                             </i></span>
                                                         </div>
