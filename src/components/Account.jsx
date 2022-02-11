@@ -47,8 +47,7 @@ export default class Account extends Component {
         })
     }
 
-    Posts = () => {
-        this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
+    Posts = this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
             const { title, available } = post;
             if (available) {
                 return (
@@ -58,13 +57,12 @@ export default class Account extends Component {
                         </span>
                         <br />
                         <a type="button" class="btn btn-primary" href="/editPost" onClick={() => { this.savePost(post) }} >Modifier</a>
-                        <a type="button" class="btn btn-danger" onClick={() => { this.delete(post) }} >supprimer</a>
+                        <a type="button" class="btn btn-danger" href="/editPost" onClick={() => { this.delete(post) }} >supprimer</a>
                     </li>
                 )
             }
         }
         )
-    }
 
     render() {
 

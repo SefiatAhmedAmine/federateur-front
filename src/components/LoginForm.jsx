@@ -46,7 +46,7 @@ const LoginForm = () => {
     };
     return (
         <>
-            <img className="wave" src={lgnimg}></img>
+            <img className="wave" src={lgnimg} alt="img"></img>
             <div className="container2">
                 <div className="img">
                     <img src="https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/82b8d8efd3b0ac6382b9d0d71a99c6cf9dcefa23/img/bg.svg" alt="img"/>
@@ -60,7 +60,7 @@ const LoginForm = () => {
                                 <i className="fas fa-user"></i>
                             </div>
                             <div className="div">
-                                <h5>{emailPlaceHolder.length == 0 ? "Email" : emailPlaceHolder}</h5>
+                                <h5>{emailPlaceHolder.length === 0 ? "Email" : emailPlaceHolder}</h5>
                                 <input type="text" className="input" onChange={e => { setEmail(e.target.value); if (e.target.value.trim().length <= 0) setEmailPlaceHolder("Email"); else setEmailPlaceHolder(" ") }} />
                             </div>
                         </div>
