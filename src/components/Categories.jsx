@@ -4,20 +4,8 @@ import axios from 'axios';
 
 const Categories = () => {
 
-    charge();
     const [allCategories, setCategories] = useState([])
     const [allPosts, setPosts] = useState([])
-
-    const savePost = (smg) => {
-        window.localStorage.setItem('post', JSON.stringify(smg));
-    }
-
-    const chargePosts = async (category) => {
-        await axios.post('https://fedback.azurewebsites.net/v1/api/categories/posts', category).then((response) => {
-            setPosts(response.data);
-        });
-    };
-
     const charge = async () => {
         axios.get('https://fedback.azurewebsites.net/v1/api/categories/')
             .then((res) => {
@@ -31,6 +19,19 @@ const Categories = () => {
             })
             .catch(err => console.log(err));
     }
+    charge();
+
+    const savePost = (smg) => {
+        window.localStorage.setItem('post', JSON.stringify(smg));
+    }
+
+    const chargePosts = async (category) => {
+        await axios.post('https://fedback.azurewebsites.net/v1/api/categories/posts', category).then((response) => {
+            setPosts(response.data);
+        });
+    };
+
+
 
     const Posts = allPosts && Object.values(allPosts).map((post) => {
         const { id, title, available, description } = post;
