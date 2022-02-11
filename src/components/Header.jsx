@@ -1,6 +1,9 @@
 import React from 'react';
 
 const Header = () =>{
+    let button;
+    if(localStorage.token) button =  <a href="/createdPost" className="appointment-btn scrollto"><span className="d-none d-md-inline">Créer </span> un nouveau poste</a>;
+    else button = <div><a href="/login" className="appointment-btn scrollto"><span className="d-none d-md-inline"> se connecter</span></a> <a href="/register" className="appointment-btn scrollto"><span className="d-none d-md-inline"> Créer un compte</span></a></div> ;
     return(
                // <!-- ======= Header =======--> */}
                <header id="header" className="fixed-top">
@@ -18,8 +21,7 @@ const Header = () =>{
                        <i className="bi bi-list mobile-nav-toggle"></i>
                    </nav>
                    {/* <!-- .navbar--> */}
-
-                   <a href="/createPost" className="appointment-btn scrollto"><span className="d-none d-md-inline">Créer </span> un nouveau poste</a>
+                   {button}
 
                </div>
            </header>

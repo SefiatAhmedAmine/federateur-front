@@ -4,12 +4,21 @@ import './css/Login.css'
 import lgnimg from './img/hero-bg.jpg'
 import {useState} from 'react'
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 
 const LoginForm = () => {
+    const navigate = useNavigate();
+
     const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [passwordPlaceHolder, setPasswordPlaceHolder] = useState("");
   const [emailPlaceHolder, setEmailPlaceHolder] = useState("");
+  
+
+ 
+  
+  
 
     let handleSubmit = async (e) => {
         console.log(email);
@@ -35,7 +44,7 @@ const LoginForm = () => {
             data = response.data;
             localStorage.setItem('user',JSON.stringify(data));
             localStorage.setItem('token',data.token);
-
+            navigate('/');
           })
           .catch(function (error) {
             console.log(error);
@@ -45,7 +54,7 @@ const LoginForm = () => {
     return (
         <>
             <img className="wave" src={lgnimg}></img>
-                <div className="container">
+                <div className="container2">
                     <div className="img">
                         <img src="https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/82b8d8efd3b0ac6382b9d0d71a99c6cf9dcefa23/img/bg.svg" />
                     </div>
@@ -72,7 +81,7 @@ const LoginForm = () => {
                                 </div>
                             </div>
                             <a href="#">Forgot Password?</a>
-                            <input type="submit" className="btn" value="Login" />
+                            <input type="submit" className="btn" value="Login"  />
                         </form>
                     </div>
                 </div>

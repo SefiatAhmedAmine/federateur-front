@@ -5,6 +5,8 @@ import lgnimg from './img/hero-bg.jpg'
 import {useState} from 'react'
 import axios from 'axios';
 import regimg from './img/registration.svg'
+import LoginModal from './modal';
+
 
 const RegistrationForm = () => {
     const [password, setPassword] = useState("");
@@ -17,6 +19,8 @@ const RegistrationForm = () => {
   const [fnPlaceHolder, setfnPlaceHolder] = useState("");
   const [lnPlaceHolder, setlnPlaceHolder] = useState("");
   const [phonePlaceHolder, setphonePlaceHolder] = useState("");
+  const [modalShow, setModalShow] = useState(false);
+  
 
     let handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,6 +44,7 @@ const RegistrationForm = () => {
           axios(config)
           .then(function (response) {
             console.log(JSON.stringify(response.data));
+            setModalShow(true);
           })
           .catch(function (error) {
             console.log(error);
@@ -50,7 +55,7 @@ const RegistrationForm = () => {
     return (
         <>
             <img className="wave" src={lgnimg}></img>
-                <div className="container">
+                <div className="container2">
                     <div className="img">
                         <img src={regimg} />
                     </div>
@@ -110,7 +115,7 @@ const RegistrationForm = () => {
                     </div>
                 </div>
 
-            
+                <LoginModal show={modalShow} onHide={() => setModalShow(false)}/>
         </>
     );
 

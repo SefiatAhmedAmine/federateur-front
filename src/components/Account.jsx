@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 
-export default class extends Component {
+export default class Account extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,15 +41,13 @@ export default class extends Component {
     submit = (event) => {
          console.log('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response);
          axios.post('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response).then((res) => {
-             this.state.response = res.data;
+            this.setState({ response: res.data });    
              console.log(res.data);
          })
-         this.state.response.message="";
     }
 
 
     render() {
-    var profile = this.state.user;
 
         return (
             <>
@@ -68,7 +66,7 @@ export default class extends Component {
                                 <li class="list-group-item text-muted">Posts <i class="fa fa-dashboard fa-1x"></i></li>
                                 {
                                     this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
-                                        const { id, title, description, available } = post;
+                                        const {  title, available } = post;
                                         if (available) {
                                             return (
                                                 <li class="list-group-item text-right">
