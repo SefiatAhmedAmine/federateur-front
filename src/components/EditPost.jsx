@@ -47,11 +47,11 @@ export default class EditPost extends Component {
                             <div className="row">
                                 {
                                     this.state.post.responds && Object.values(this.state.post.responds).map((respond) => {
-                                        const { id, message, createdBy } = respond;
+                                        const {  message } = respond;
                                         return (
                                             <div class="card-body">
                                                 <h2 class="">{message}</h2>
-                                                <div class=""><a class="btn btn-primary btn-sm" onClick={() => { this.accepter(respond)}}>Accepter</a></div>
+                                                <div class=""><a class="btn btn-primary btn-sm" href="/EditPost" onClick={() => { this.accepter(respond)}}>Accepter</a></div>
                                                 <hr />
                                             </div>
                                         )

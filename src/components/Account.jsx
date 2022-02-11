@@ -13,6 +13,7 @@ export default class Account extends Component {
     }
 
     charge() {
+        console.log(this.state.user)
         axios.post('https://fedback.azurewebsites.net/v1/api/users/posts', this.state.user)
             .then((res) => {
                 this.setState({ allPosts: res.data });
