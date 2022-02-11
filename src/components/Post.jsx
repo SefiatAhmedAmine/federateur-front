@@ -92,12 +92,18 @@ export default class Post extends Component {
                                 <section className="mb-5">
                                     <div className="card bg-light">
                                         <div className="card-body">
-                                            <div class="chat-message clearfix">
-                                                <div class="input-group mb-0">
+                                            <div className="chat-message clearfix">
+                                                <div className="input-group mb-0">
                                                     <div onChange={this.change} >
+<<<<<<< HEAD
                                                         <textarea type="text" class="form-control" placeholder="Enter text here..." name="response.message" rows="5" cols="90"></textarea>
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fa fa-send">
+=======
+                                                        <textarea type="text" className="form-control" placeholder="Enter text here..." name="response.message"  rows="5" cols="90"></textarea>
+                                                        <div className="input-group-prepend">
+                                                            <span className="input-group-text"><i className="fa fa-send">
+>>>>>>> c5b568d (Title)
                                                                 <button className='btn-block btn btn-primary' onClick={this.submit}>Envoyer une réponse au proprietaire du post </button>
                                                             </i></span>
                                                         </div>
@@ -115,14 +121,14 @@ export default class Post extends Component {
                                     <div className="card-header">Categories</div>
                                     <div className="card-body">
                                         <div className="row">
-                                            <div className="col-sm-4">
+                                            <div className="col-sm-12">
                                                 <ul className="list-unstyled mb-0">
                                                     {
                                                         this.state.allCategories.map((category) => {
                                                             const { id, name } = category;
                                                             return (
                                                                 <>
-                                                                    <li key={id} className="mt-2 mb-3 my-12 ">
+                                                                    <li key={id} className="mt-2 mb-3 my-12 d-flex justify-content-center">
                                                                         <a href="/">{name}</a>
                                                                     </li>
                                                                     <hr />
@@ -138,7 +144,7 @@ export default class Post extends Component {
                                 </div>
                                 <div className='container '>
                                     <div className="mb-3">
-                                        <a href={`https://wa.me/${this.state.post.createdBy.phoneNumber}`} className='whatsapp'>Send whatsapp</a>
+                                        <a href={`https://wa.me/${this.state.post.createdBy.phoneNumber}`} className='btn btn-success btn-lg'>Send whatsapp</a>
                                     </div>
                                     <div className="mb-3">
                                         <a href={`mailto:${this.state.post.createdBy.email}`} className="btn btn-secondary btn-lg">send email</a>
