@@ -7,8 +7,6 @@ import Header from './components/Header';
 import Post from './components/Post';
 import EditPost from './components/EditPost';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import RegisterPage from './pages/RegisterPage'
 function App() {
   return (
     <div className="App">
