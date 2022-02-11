@@ -1,11 +1,12 @@
 import React from 'react';
 
-const  WhyUs = () => {
+const  Home = () => {
     return (
         <>
         {/* <!-- ======= Why Us Section =======--> */}
-        <section id="why-us" className="why-us">
+                    <section id="why-us" className="why-us">
                         <div className="container">
+
                             <div className="row">
                                 <div className="col-lg-4 d-flex align-items-stretch">
                                     <div className="content">
@@ -55,4 +56,4 @@ const  WhyUs = () => {
     );
 }
 
-export default WhyUs;
+export default Home;

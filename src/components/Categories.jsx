@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import axios from 'axios';
 
-export default class Departement extends Component {
+export default class Categories extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -84,18 +84,20 @@ export default class Departement extends Component {
                                                     <div className="row">
                                                         {
                                                             this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
-                                                                const { id, title, description } = post;
-                                                                return (
-                                                                    <div class="col-md-4 mb-5" key={id}>
-                                                                        <div class="card h-100">
-                                                                            <div class="card-body">
-                                                                                <h2 class="card-title">{title}</h2>
-                                                                                <p class="card-text">{description}</p>
+                                                                const { id, title, available, description } = post;
+                                                                if (available) {
+                                                                    return (
+                                                                        <div class="col-md-4 mb-5" key={id}>
+                                                                            <div class="card h-100">
+                                                                                <div class="card-body">
+                                                                                    <h2 class="card-title">{title}</h2>
+                                                                                    <p class="card-text">{description}</p>
+                                                                                </div>
+                                                                                <div class="card-footer"><a class="btn btn-primary btn-sm" onClick={() => { this.savePost(post) }} href="/post" >Plus d'informations</a></div>
                                                                             </div>
-                                                                            <div class="card-footer"><a class="btn btn-primary btn-sm" onClick={() => { this.savePost(post) }} href="/post" >Plus d'informations</a></div>
                                                                         </div>
-                                                                    </div>
-                                                                )
+                                                                    )
+                                                                }
                                                             }
                                                             )
                                                         }
