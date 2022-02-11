@@ -2,16 +2,6 @@ import React from 'react';
 import sadaka from '../images/sadaka.png'
 import legs from '../images/legs.png'
 import orphelin from '../images/orphelin.png'
-import Hero from '../components/Hero';
-import WhyUs from '../components/WhyUs';
-import Appointment from '../components/Appointment';
-import Header from '../components/Header';
-import Contact from '../components/Contact';
-import Counts from '../components/Counts';
-import Departement from '../components/Departement';
-import Doctors from '../components/Doctors';
-import Services from '../components/Services';
-import Post from '../components/Post';
 const Home = () => {
     window.localStorage.setItem('user', JSON.stringify(
         {

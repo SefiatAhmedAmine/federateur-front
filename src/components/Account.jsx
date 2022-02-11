@@ -38,15 +38,33 @@ export default class Account extends Component {
         this.setState({ [event.target.name]: event.target.value });
         console.log(this.state);
     }
-    
+
     submit = (event) => {
-         console.log('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response);
-         axios.post('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response).then((res) => {
-            this.setState({ response: res.data });    
-             console.log(res.data);
-         })
+        console.log('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response);
+        axios.post('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response).then((res) => {
+            this.setState({ response: res.data });
+            console.log(res.data);
+        })
     }
 
+    Posts = () => {
+        this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
+            const { title, available } = post;
+            if (available) {
+                return (
+                    <li class="list-group-item text-right">
+                        <span class="pull-left">
+                            <strong>{title}</strong>
+                        </span>
+                        <br />
+                        <a type="button" class="btn btn-primary" href="/editPost" onClick={() => { this.savePost(post) }} >Modifier</a>
+                        <a type="button" class="btn btn-danger" onClick={() => { this.delete(post) }} >supprimer</a>
+                    </li>
+                )
+            }
+        }
+        )
+    }
 
     render() {
 
@@ -65,24 +83,7 @@ export default class Account extends Component {
 
                             <ul class="list-group">
                                 <li class="list-group-item text-muted">Posts <i class="fa fa-dashboard fa-1x"></i></li>
-                                {
-                                    this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
-                                        const {  title, available } = post;
-                                        if (available) {
-                                            return (
-                                                <li class="list-group-item text-right">
-                                                    <span class="pull-left">
-                                                        <strong>{title}</strong>
-                                                    </span>
-                                                    <br />
-                                                    <a type="button" class="btn btn-primary" href="/editPost" onClick={() => { this.savePost(post) }} >Modifier</a>
-                                                    <a type="button" class="btn btn-danger" onClick={() => { this.delete(post) }} >supprimer</a>
-                                                </li>
-                                            )
-                                        }
-                                    }
-                                    )
-                                }
+                                {this.Posts}
                             </ul>
 
                         </div>{/* <!--/col-3--> */}

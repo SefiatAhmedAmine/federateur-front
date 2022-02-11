@@ -5,7 +5,7 @@ import { getCategory, createPost } from '../services/Api';
 
 function CreatedPost() {
 
-    const [images, setImages] = useState();
+    // const [images, setImages] = useState();
 
     const [categories, setCategories] = useState([])
 

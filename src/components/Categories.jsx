@@ -36,6 +36,24 @@ export default class Categories extends Component {
             .catch(err => console.log(err));
     }
 
+    Posts = this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
+        const { id, title, available, description } = post;
+        if (available) {
+            return (
+                <div className="col-md-4 mb-5" key={id}>
+                    <div className="card h-100">
+                        <div class="card-header card-title fw-bold">{title}</div>
+                        <div className="card-body">
+                            <p className="card-text">{description}</p>
+                        </div>
+                        <div className="card-footer"><a className="btn btn-primary btn-sm" onClick={() => { this.savePost(post) }} href="/post" >Plus d'informations</a></div>
+                    </div>
+                </div>
+            )
+        }
+    }
+    )
+
     render() {
         return (
             <>
@@ -67,7 +85,7 @@ export default class Categories extends Component {
 
                                                         </div>
                                                     </li>
-                                                    <hr/>
+                                                    <hr />
                                                 </button>
                                             )
                                         }
@@ -83,25 +101,9 @@ export default class Categories extends Component {
                                         <div className="row gy-4">
                                             <div id="services" className="services" >
                                                 <div className="container">
-                                                    <div className="row" style={{padding: "10px"}}>
+                                                    <div className="row" style={{ padding: "10px" }}>
                                                         {
-                                                            this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
-                                                                const { id, title, available, description } = post;
-                                                                if (available) {
-                                                                    return (
-                                                                        <div className="col-md-4 mb-5" key={id}>
-                                                                            <div className="card h-100">
-                                                                                <div class="card-header card-title fw-bold">{title}</div>
-                                                                                <div className="card-body">
-                                                                                    <p className="card-text">{description}</p>
-                                                                                </div>
-                                                                                <div className="card-footer"><a className="btn btn-primary btn-sm" onClick={() => { this.savePost(post) }} href="/post" >Plus d'informations</a></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    )
-                                                                }
-                                                            }
-                                                            )
+                                                            this.Posts
                                                         }
                                                     </div>
                                                 </div>
