@@ -9,8 +9,8 @@ import Home from './pages/Home';
 import CategoriesManager from './pages/Admin/CategoriesManager';
 import AdminDash from './pages/Admin/AdminDash';
 import AccountsManager from './pages/Admin/AccountsManager';
-import DefaultTemplate from './templates/DefaultTemplate';
-import AdminTemplate from './templates/AdminTemplate';
+import DefaultTemplate from './templates/default/DefaultTemplate';
+import AdminTemplate from './templates/admin/AdminTemplate';
 
 function App() {
   return (

@@ -10,7 +10,7 @@ export const dummyCategories = [
         description: 'Dons et demandes de caracteres financieres'
     },
     {
-        id: 1, 
+        id: 2, 
         name: 'Materiels',
         description: 'Dons et demandes d\'objets physique (vetements, couvertures, etc)',
     }
