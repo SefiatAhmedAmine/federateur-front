@@ -50,6 +50,10 @@ export default class Categories extends Component {
                     </div>
                 </div>
             )
+        }else{
+            return(
+                <></>
+            )
         }
     }
     )

@@ -60,6 +60,10 @@ export default class Account extends Component {
                         <a type="button" class="btn btn-danger" href="/editPost" onClick={() => { this.delete(post) }} >supprimer</a>
                     </li>
                 )
+            }else{
+                return(
+                    <></>
+                )
             }
         }
         )

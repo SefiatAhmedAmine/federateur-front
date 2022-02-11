@@ -50,7 +50,9 @@ export default class Post extends Component {
             this.setState({ response: res.data });
             console.log(res.data);
         })
-        this.state.response.message = "";
+        let r = this.state.response
+        r.message = "";
+        this.setState({ response: r })
     }
     static loadPost() {
         return JSON.parse(window.localStorage.getItem('post'));
