@@ -2,7 +2,7 @@ import React from 'react';
 import Hero from '../components/Hero';
 import WhyUs from '../components/WhyUs';
 import Appointment from '../components/Appointment';
-import Header from '../components/Header';
+import Header from '../components/header/Header';
 import Contact from '../components/Contact';
 import Counts from '../components/Counts';
 import Departement from '../components/Departement';
