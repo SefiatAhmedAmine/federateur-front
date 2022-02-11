@@ -1,32 +1,80 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../image.css';
+import { getCategory, createPost } from '../services/Api';
 
 function CreatedPost() {
 
-    const [images, setImages] = useState({images: null});
+    const [images, setImages] = useState();
+
+    const [categories, setCategories] = useState([])
 
     const [formulaire, setFormulaire] = useState({
-        "id": -14232068,
-        "category": {},
+        "id": 26,
+        "category": null,
         "description": "",
         "createdAt": "2016-02-29T22:02:03.752Z",
         "responds": [],
         "available": true,
-        "type": "REQUEST",
+        "type": "",
         "createdBy": {
-            "id": 12266025,
+            "id": 1,
             "firstname": "Oussama",
             "lastname": "Aarab",
-            "phoneNumber": "0666666666",
-            "longitude": -3960313.807099387,
-            "latitude": -25541733.80335647,
+            "phoneNumber": "0624085197",
+            "longitude": 6.3755290673898965E7,
+            "latitude": -4.356204952808507E7,
             "email": "oussama_aarab@um5.ac.ma",
-            "password": "123456",
+            "password": "$2a$10$4f3fZWXHkRLybyg61e4D..7xMH9xg6jX21P0t3I/UiGm/MSejjpMC",
             "roles": ["USER"]
         }
     })
 
+    useEffect(
+        () => {
+            async function getDataCategories() {
+                try {
+                    const response = await getCategory();
+                    //console.log(response);
+                    setCategories(response);
+                    
+                } catch ({ response }) {
+                    console.log(response);
+                }
+            }
+            getDataCategories();
+        },
+        [setCategories]
+    );
+
+    const handleChange = ({currentTarget}) => {
+        const {name, value} = currentTarget;
+        
+        setFormulaire({...formulaire, [name] : value})
+
+        let data = formulaire;
+        data.category = categories[parseInt(formulaire.category)];
+        setFormulaire(data);
+        console.log(formulaire)
+
+    }
+
+    const handleSubmit = async event => {
+        event.preventDefault();
+
+        try {
+            let data = formulaire;
+            data.category = categories[parseInt(formulaire.category)];
+            setFormulaire(data);
+            const submit = await createPost(formulaire);
+            console.log(submit);
+        }catch ({ response }) {
+            
+            console.log(formulaire);   
+        }
+        
+    }
+    
     return (
         <>
             <section id="appointment" className="appointment section-bg">
@@ -36,21 +84,22 @@ function CreatedPost() {
                         <h2>Création du poste</h2>
                     </div>
 
-                    <form method="post" className="php-email-form">
+                    <form onSubmit={handleSubmit} className="php-email-form">
 
                         <div className="row">
 
                             <div className="col-md-6 form-group mt-3">
-                                <select name="category" id="category" defaultValue="0" className="form-select">
+                                <select name="category" id="category" defaultValue="0" onChange={handleChange} className="form-select">
                                     <option hidden>Choisir la catégorie</option>
-                                    <option value="Department 1">Catégorie 1</option>
-                                    <option value="Department 2">Catégorie 2</option>
-                                    <option value="Department 3">Catégorie 3</option>
+                                    {
+                                        categories.map((cate, index) => (<option key = {index} value={index}>{cate.name}</option>))
+                                    }    
                                 </select>
                                 <div className="validate"></div>
                             </div>
+
                             <div className="col-md-6 form-group mt-3">
-                                <select name="type" id="type" defaultValue="0" className="form-select">
+                                <select name="type" id="type" defaultValue="0" onChange={handleChange} className="form-select">
                                     <option hidden>Choisir le type</option>
                                     <option value="REQUEST">REQUEST</option>
                                     <option value="Donation">DONATION</option>
@@ -61,7 +110,7 @@ function CreatedPost() {
                         </div>
 
                         <div className="form-group mt-3">
-                            <textarea className="form-control" name="description" rows="5" placeholder="Description"></textarea>
+                            <textarea className="form-control" name="description" onChange={handleChange} rows="5" placeholder="Description"></textarea>
                             <div className="validate"></div>
                         </div>
 

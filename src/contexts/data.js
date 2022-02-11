@@ -1,0 +1,1 @@
+export const HOST = 'https://fedback.azurewebsites.net/'
