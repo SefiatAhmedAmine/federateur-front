@@ -44,8 +44,8 @@ export default class Categories extends Component {
                     <div className="container">
 
                         <div className="section-title">
-                            <h2>Departments</h2>
-                            <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                            <h2>Posts</h2>
+                            <p>Don en argent ou en nature, don de soi... Quelle qu'en soit la forme, soutenir et participer à des actions humanitaires en faveur des personnes vulnérables est un acte considéré comme essentiel dans la tradition de l'Islam. Cette philosophie humaniste est au cœur de notre approche.</p>
                         </div>
 
                         <div className="row gy-4">
@@ -58,14 +58,16 @@ export default class Categories extends Component {
                                             return (
                                                 <button className="nav-link active show" data-bs-toggle="tab" onClick={() => { this.chargePosts({ id, name, description }) }}>
                                                     <li className="nav-item" key={id}>
-                                                        <div class="card-body p-5">
-                                                            <div class="small text-uppercase fw-bold text-muted">{description}</div>
-                                                            <div class="mb-3">
-                                                                <span class="display-4 fw-bold">{name}</span>
-                                                                {/* <span class="text-muted">/ mo.</span> */}
+                                                        <div className="card-body ">
+                                                            <div className="mb-3">
+                                                                <span className="display-6 fw-bold">{name}</span>
+                                                                {/* <span className="text-muted">/ mo.</span> */}
                                                             </div>
+                                                            <div className="small fw-bold text-muted">{description}</div>
+
                                                         </div>
                                                     </li>
+                                                    <hr/>
                                                 </button>
                                             )
                                         }
@@ -75,25 +77,25 @@ export default class Categories extends Component {
 
                             </div>
 
-                            <div className="col-lg-9">
+                            <div className="col-lg-9" >
                                 <div className="tab-content">
                                     <div className="tab-pane active show" id="tab-1">
                                         <div className="row gy-4">
-                                            <div id="services" className="services">
+                                            <div id="services" className="services" >
                                                 <div className="container">
-                                                    <div className="row">
+                                                    <div className="row" style={{padding: "10px"}}>
                                                         {
                                                             this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
                                                                 const { id, title, available, description } = post;
                                                                 if (available) {
                                                                     return (
-                                                                        <div class="col-md-4 mb-5" key={id}>
-                                                                            <div class="card h-100">
-                                                                                <div class="card-body">
-                                                                                    <h2 class="card-title">{title}</h2>
-                                                                                    <p class="card-text">{description}</p>
+                                                                        <div className="col-md-4 mb-5" key={id}>
+                                                                            <div className="card h-100">
+                                                                                <div class="card-header card-title fw-bold">{title}</div>
+                                                                                <div className="card-body">
+                                                                                    <p className="card-text">{description}</p>
                                                                                 </div>
-                                                                                <div class="card-footer"><a class="btn btn-primary btn-sm" onClick={() => { this.savePost(post) }} href="/post" >Plus d'informations</a></div>
+                                                                                <div className="card-footer"><a className="btn btn-primary btn-sm" onClick={() => { this.savePost(post) }} href="/post" >Plus d'informations</a></div>
                                                                             </div>
                                                                         </div>
                                                                     )

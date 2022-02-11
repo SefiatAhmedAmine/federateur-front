@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import CreatedPost from './components/CreatedPost'
 import Register from './pages/RegisterPage'
 import Login from './pages/Login'
+import About from './pages/About'
 
 function App() {
   const login = !!localStorage.token?<Home/>:<Login/>
@@ -30,7 +31,8 @@ function App() {
           <Route path="/Post" element={<Post />} /> 
           <Route path="/account" element={<Account />} /> 
           <Route path="/editPost" element={<EditPost />} />
-          <Route path="/createdPost" element={<CreatedPost />} />  
+          <Route path="/createdPost" element={<CreatedPost />} />
+          <Route path="/about" element={<About />}/>  
           <Route path="/login" element={login}/>
           <Route path="/register" element={register}/>
           <Route>404!</Route>
