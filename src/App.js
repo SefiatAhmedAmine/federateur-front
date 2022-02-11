@@ -7,8 +7,14 @@ import Header from './components/Header';
 import Post from './components/Post';
 import EditPost from './components/EditPost';
 import Home from './pages/Home';
+import CreatedPost from './components/CreatedPost'
+import Register from './pages/RegisterPage'
+import Login from './pages/Login'
+import About from './pages/About'
 
 function App() {
+  const login = !!localStorage.token?<Home/>:<Login/>
+  const register = !!localStorage.token?<Home/>:<Register/>
   return (
     <div className="App">
       <Header />
@@ -24,7 +30,11 @@ function App() {
           <Route path="/contact" element={<Contact/>} />
           <Route path="/Post" element={<Post />} /> 
           <Route path="/account" element={<Account />} /> 
-          <Route path="/editPost" element={<EditPost />} /> 
+          <Route path="/editPost" element={<EditPost />} />
+          <Route path="/createdPost" element={<CreatedPost />} />
+          <Route path="/about" element={<About />}/>  
+          <Route path="/login" element={login}/>
+          <Route path="/register" element={register}/>
           <Route>404!</Route>
         </Routes>
       </BrowserRouter>
