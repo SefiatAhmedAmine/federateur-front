@@ -10,15 +10,17 @@ export default class EditPost extends Component {
         };
         this.state.post = JSON.parse(window.localStorage.getItem('post'));
     }
-    accepter(respond){
+    accepter(respond) {
         //update respond
-        respond.verified = true ;
-        axios.put('https://fedback.azurewebsites.net/v1/api/responds/update',respond).then((res =>{
+        respond.verified = true;
+        axios.put('https://fedback.azurewebsites.net/v1/api/responds/update', respond).then((res => {
             console.log(res.data);
         }))
         //update post
-        this.state.post.available = false ;
-        axios.put('https://fedback.azurewebsites.net/v1/api/posts/update',this.state.post).then((res =>{
+        let p = this.state.post;
+        p.available = true
+        this.setState({ post: p });
+        axios.put('https://fedback.azurewebsites.net/v1/api/posts/update', this.state.post).then((res => {
             console.log(res.data);
         }))
     }
@@ -47,11 +49,11 @@ export default class EditPost extends Component {
                             <div className="row">
                                 {
                                     this.state.post.responds && Object.values(this.state.post.responds).map((respond) => {
-                                        const {  message } = respond;
+                                        const { message } = respond;
                                         return (
                                             <div class="card-body">
                                                 <h2 class="">{message}</h2>
-                                                <div class=""><a class="btn btn-primary btn-sm" href="/EditPost" onClick={() => { this.accepter(respond)}}>Accepter</a></div>
+                                                <div class=""><a class="btn btn-primary btn-sm" href="/EditPost" onClick={() => { this.accepter(respond) }}>Accepter</a></div>
                                                 <hr />
                                             </div>
                                         )

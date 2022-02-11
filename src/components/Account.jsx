@@ -47,7 +47,7 @@ export default class Account extends Component {
         })
     }
 
-    Posts = this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
+    Posts = this.state.allPosts.map((post) => {
             const { title, available } = post;
             if (available) {
                 return (
@@ -65,7 +65,6 @@ export default class Account extends Component {
         )
 
     render() {
-
         return (
             <>
                 <div class="container bootstrap snippet">

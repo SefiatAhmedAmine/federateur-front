@@ -36,7 +36,7 @@ export default class Categories extends Component {
             .catch(err => console.log(err));
     }
 
-    Posts = this.state.allPosts && Object.values(this.state.allPosts).map((post) => {
+    Posts = this.state.allPosts.map((post) => {
         const { id, title, available, description } = post;
         if (available) {
             return (

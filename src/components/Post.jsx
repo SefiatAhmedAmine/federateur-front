@@ -25,7 +25,8 @@ export default class Post extends Component {
     change = (event) => {
         console.log(event.target.name)
         this.setState({ [event.target.name]: event.target.value });
-        this.state.response.respondedBy = {
+        let r = this.state.response
+        r.respondedBy = {
             "id": 1,
             "firstname": "commodo",
             "lastname": "laborum",
@@ -38,15 +39,18 @@ export default class Post extends Component {
                 "ADMIN"
             ]
         };
+        this.setState({ response: r });
     }
-    
+
     submit = (event) => {
-         console.log('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response);
-         axios.post('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response).then((res) => {
-             this.state.response = res.data;
-             console.log(res.data);
-         })
-         this.state.response.message="";
+        let id = this.state.post.id;
+        let response = this.state.response;
+        console.log('https://fedback.azurewebsites.net/v1/api/posts/' + id + '/responds', response);
+        axios.post('https://fedback.azurewebsites.net/v1/api/posts/' + id + '/responds', response).then((res) => {
+            this.setState({ response: res.data });
+            console.log(res.data);
+        })
+        this.state.response.message = "";
     }
     static loadPost() {
         return JSON.parse(window.localStorage.getItem('post'));
@@ -89,7 +93,7 @@ export default class Post extends Component {
                                             <div class="chat-message clearfix">
                                                 <div class="input-group mb-0">
                                                     <div onChange={this.change} >
-                                                        <textarea type="text" class="form-control" placeholder="Enter text here..." name="response.message"  rows="5" cols="90"></textarea>
+                                                        <textarea type="text" class="form-control" placeholder="Enter text here..." name="response.message" rows="5" cols="90"></textarea>
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fa fa-send">
                                                                 <button className='btn-block btn btn-primary' onClick={this.submit}>Envoyer une réponse au proprietaire du post </button>
