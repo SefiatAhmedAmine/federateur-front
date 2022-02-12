@@ -51,7 +51,7 @@ const Account = () => {
                     </span>
                     <br />
                     <a type="button" class="btn btn-primary" href="/editPost" onClick={() => { savePost(post) }} >Modifier</a>
-                    <a type="button" class="btn btn-danger" onClick={() => { deletePost(post) }} >supprimer</a>
+                    <a type="button" class="btn btn-danger" href="/editPost" onClick={() => { deletePost(post) }} >supprimer</a>
                 </li>
             )
         } else {

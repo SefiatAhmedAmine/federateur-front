@@ -28,7 +28,7 @@ const Categories = () => {
             .catch(err => console.log(err));
     }
 
-    useEffect(() => { charge() }, []);
+    useEffect(() => { charge() }, [charge]);
     window.localStorage.setItem('categories', JSON.stringify(allCategories));
 
     const savePost = (smg) => {
