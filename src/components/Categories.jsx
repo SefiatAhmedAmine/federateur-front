@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getCategory, getPost, findPostByUser } from '../services/Api';
 
 import axios from 'axios';
 
@@ -6,31 +7,59 @@ const Categories = () => {
 
     const [allCategories, setCategories] = useState([])
     const [allPosts, setPosts] = useState([])
+    //const [postUser, setPostUser] = useState()
+    
+    useEffect(
+        () => {
+            async function getDataCategories() {
+                try {
+                    const response = await getCategory();
+                    setCategories(response);
 
-    useEffect(async () => {
-        const a = await axios.get('https://fedback.azurewebsites.net/v1/api/categories/')
-            .then((res) => {
-                setCategories(res.data);
-                window.localStorage.setItem('categories', JSON.stringify(allCategories));
-            })
-            .catch(err => console.log(err));
-        const b = await axios.get('https://fedback.azurewebsites.net/v1/api/posts/')
-            .then((res) => {
-                setPosts(res.data);
-            })
-            .catch(err => console.log(err));
-        let user = JSON.parse(window.localStorage.getItem('user'));
-        console.log(user)
-        const c = await axios.post('https://fedback.azurewebsites.net/v1/api/users/posts', user)
-            .then((res) => {
-                window.localStorage.setItem('posts', JSON.stringify(res.data));
-                console.log(res.data)
-            })
-            .catch(err => console.log(err));
-        if(a){}
-        if(b){}
-        if(c){}
-    }, []);
+                } catch ({ response }) {
+                    console.log("Erreur getCategory");
+                }
+            }
+            getDataCategories();
+        },
+        [setCategories]
+    );
+
+    useEffect(
+        () => {
+            async function getDataPosts() {
+                try {
+                    const response = await getPost();
+                    setPosts(response);
+
+                } catch ({ response }) {
+                    console.log("erreur getPost");
+                }
+            }
+            getDataPosts();
+        },
+        [setPosts]
+    );
+
+    useEffect(
+        () => {
+            async function findPost() {
+                try {
+                    let user = JSON.parse(window.localStorage.getItem('user'));
+                    const response = await findPostByUser(user);
+                    window.localStorage.setItem('posts', JSON.stringify(response));
+                    //setPostUser(response);
+                    //console.log(postUser)
+
+                } catch ({ response }) {
+                    console.log("Erreur getCategory");
+                }
+            }
+            findPost();
+        },
+        []
+    );
+
     window.localStorage.setItem('categories', JSON.stringify(allCategories));
 
     const savePost = (smg) => {
