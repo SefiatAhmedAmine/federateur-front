@@ -91,7 +91,7 @@ export default class Categories extends Component {
                                                                     return (
                                                                         <div className="col-md-4 mb-5" key={id}>
                                                                             <div className="card h-100">
-                                                                                <div class="card-header card-title fw-bold">{title}</div>
+                                                                                <div className="card-header card-title fw-bold">{title}</div>
                                                                                 <div className="card-body">
                                                                                     <p className="card-text">{description}</p>
                                                                                 </div>
