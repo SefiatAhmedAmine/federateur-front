@@ -9,8 +9,7 @@ export default class Post extends Component {
             allCategories: [],
             post: {},
             response: {
-                "id": 62468377,
-                "respondedBy": {},
+                "respondedBy": JSON.parse(localStorage.getItem("user")),
                 "verified": false,
                 "message": ""
             }
@@ -23,30 +22,31 @@ export default class Post extends Component {
         console.log(this.state)
     }
     change = (event) => {
-        console.log(event.target.name)
-        this.setState({ [event.target.name]: event.target.value });
-        let r = this.state.response
-        r.respondedBy = {
-            "id": 1,
-            "firstname": "commodo",
-            "lastname": "laborum",
-            "phoneNumber": "+212673904066",
-            "longitude": -7.860166348697782E7,
-            "latitude": -7.846050072630888E7,
-            "email": "sdelaboudi@gmail.com",
-            "password": "hello",
-            "roles": [
-                "ADMIN"
-            ]
-        };
-        this.setState({ response: r });
+        //console.log(event.target.name)
+        this.setState({
+            ["response"]: {
+                "respondedBy": JSON.parse(localStorage.getItem("user")),
+                "verified": false,
+                "message": event.target.value
+            }
+        });
+        console.log(this.state.response)
+    }
+
+    sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
+    refreshPage = () => {
+        this.sleep(2000).then(r => {
+            window.location.reload();
+        })
+
     }
 
     submit = (event) => {
-        let id = this.state.post.id;
-        let response = this.state.response;
-        console.log('https://fedback.azurewebsites.net/v1/api/posts/' + id + '/responds', response);
-        axios.post('https://fedback.azurewebsites.net/v1/api/posts/' + id + '/responds', response).then((res) => {
+        console.log('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response);
+        axios.post('https://fedback.azurewebsites.net/v1/api/posts/' + this.state.post.id + '/responds', this.state.response).then((res) => {
             this.setState({ response: res.data });
             console.log(res.data);
         })
@@ -64,7 +64,7 @@ export default class Post extends Component {
     render() {
         return (
             <>
-                <body>
+                <div>
                     {/*  <!-- Page content--> */}
                     <div className="container mt-5">
                         <div className="row">
@@ -92,12 +92,12 @@ export default class Post extends Component {
                                 <section className="mb-5">
                                     <div className="card bg-light">
                                         <div className="card-body">
-                                            <div class="chat-message clearfix">
-                                                <div class="input-group mb-0">
-                                                    <div onChange={this.change} >
-                                                        <textarea type="text" class="form-control" placeholder="Enter text here..." name="response.message" rows="5" cols="90"></textarea>
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i class="fa fa-send">
+                                            <div className="chat-message clearfix">
+                                                <div className="input-group mb-0">
+                                                    <div>
+                                                        <textarea type="text" className="form-control" placeholder="Message de réponse" name="response.message" onChange={this.change} rows="5" cols="90"></textarea>
+                                                        <div className="input-group-prepend">
+                                                            <span className="input-group-text"><i className="fa fa-send">
                                                                 <button className='btn-block btn btn-primary' onClick={this.submit}>Envoyer une réponse au proprietaire du post </button>
                                                             </i></span>
                                                         </div>
@@ -112,21 +112,20 @@ export default class Post extends Component {
                             <div className="col-lg-4">
                                 {/*  <!-- Categories widget--> */}
                                 <div className="card mb-4">
-                                    <div className="card-header">Categories</div>
+                                    <div className="card-header">Catégories</div>
                                     <div className="card-body">
                                         <div className="row">
-                                            <div className="col-sm-4">
-                                                <ul className="list-unstyled mb-0">
+                                            <div className="col-sm-12 ">
+                                                <ul className="list-unstyled mb-0 ">
                                                     {
-                                                        this.state.allCategories.map((category) => {
-                                                            const { id, name } = category;
+                                                        this.state.allCategories.map((category, index) => {
                                                             return (
-                                                                <>
-                                                                    <li key={id} className="mt-2 mb-3 my-12 ">
-                                                                        <a href="/">{name}</a>
+                                                                <div key={index}>
+                                                                    <li className="mt-2 mb-3 my-12 d-flex justify-content-center">
+                                                                        <a href="/">{category.name}</a>
                                                                     </li>
                                                                     <hr />
-                                                                </>
+                                                                </div>
                                                             );
                                                         }
                                                         )
@@ -138,7 +137,7 @@ export default class Post extends Component {
                                 </div>
                                 <div className='container '>
                                     <div className="mb-3">
-                                        <a href={`https://wa.me/${this.state.post.createdBy.phoneNumber}`} className='whatsapp'>Send whatsapp</a>
+                                        <a href={`https://wa.me/${this.state.post.createdBy.phoneNumber}`} className='btn btn-success btn-lg'>Send whatsapp</a>
                                     </div>
                                     <div className="mb-3">
                                         <a href={`mailto:${this.state.post.createdBy.email}`} className="btn btn-secondary btn-lg">send email</a>
@@ -151,7 +150,7 @@ export default class Post extends Component {
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
                     {/* {/*  <!-- Core theme JS--> */}
                     <script src="js/scripts.js"></script>
-                </body>
+                </div>
             </>
         )
     }

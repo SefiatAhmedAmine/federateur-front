@@ -18,9 +18,18 @@ const Categories = () => {
                 setPosts(res.data);
             })
             .catch(err => console.log(err));
+        let user = JSON.parse(window.localStorage.getItem('user')) ;
+        console.log(user)
+        axios.post('https://fedback.azurewebsites.net/v1/api/users/posts', user)
+            .then((res) => {
+                window.localStorage.setItem('posts', JSON.stringify(res.data));
+                console.log(res.data)
+            })
+            .catch(err => console.log(err));
     }
 
     useEffect(() => { charge() }, []);
+    window.localStorage.setItem('categories', JSON.stringify(allCategories));
 
     const savePost = (smg) => {
         window.localStorage.setItem('post', JSON.stringify(smg));

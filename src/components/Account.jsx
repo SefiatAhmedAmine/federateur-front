@@ -8,20 +8,17 @@ const Account = () => {
 
     useEffect(() => {
         setUser(JSON.parse(window.localStorage.getItem('user')));
-        console.log(user)
-        axios.post('https://fedback.azurewebsites.net/v1/api/users/posts', user)
-            .then((res) => {
-                setPosts(res.data);
-                console.log(res.data);
-            })
-            .catch(err => console.log(err));
+        setPosts(JSON.parse(window.localStorage.getItem('posts')));
     }, []);
+    
+
 
     const savePost = (smg) => {
         window.localStorage.setItem('post', JSON.stringify(smg));
     }
 
-    const deletePost = (post) => {
+    const deletePost = async (post) => {
+        console.log('https://fedback.azurewebsites.net/v1/api/posts/' + post.id + '/delete')
         axios.delete('https://fedback.azurewebsites.net/v1/api/posts/' + post.id + '/delete')
             .then((res) => {
                 console.log(res.data)
@@ -54,7 +51,7 @@ const Account = () => {
                     </span>
                     <br />
                     <a type="button" class="btn btn-primary" href="/editPost" onClick={() => { savePost(post) }} >Modifier</a>
-                    <a type="button" class="btn btn-danger" href="/editPost" onClick={() => { deletePost(post) }} >supprimer</a>
+                    <a type="button" class="btn btn-danger" onClick={() => { deletePost(post) }} >supprimer</a>
                 </li>
             )
         } else {

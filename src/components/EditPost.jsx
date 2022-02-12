@@ -18,11 +18,19 @@ export default class EditPost extends Component {
         }))
         //update post
         let p = this.state.post;
-        p.available = true
+        p.available = false
         this.setState({ post: p });
         axios.put('https://fedback.azurewebsites.net/v1/api/posts/update', this.state.post).then((res => {
             console.log(res.data);
         }))
+        let user = JSON.parse(window.localStorage.getItem('user')) ;
+        console.log(user)
+        axios.post('https://fedback.azurewebsites.net/v1/api/users/posts', user)
+            .then((res) => {
+                window.localStorage.setItem('posts', JSON.stringify(res.data));
+                console.log(res.data)
+            })
+            .catch(err => console.log(err));
     }
     render() {
         return (
@@ -53,7 +61,7 @@ export default class EditPost extends Component {
                                         return (
                                             <div class="card-body">
                                                 <h2 class="">{message}</h2>
-                                                <div class=""><a class="btn btn-primary btn-sm" href="/EditPost" onClick={() => { this.accepter(respond) }}>Accepter</a></div>
+                                                <div class=""><button class="btn btn-primary btn-sm" onClick={() => { this.accepter(respond) }}>Accepter</button></div>
                                                 <hr />
                                             </div>
                                         )
