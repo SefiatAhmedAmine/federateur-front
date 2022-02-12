@@ -49,30 +49,26 @@ const Account = () => {
     }
 
     const Posts = allPosts && Object.values(allPosts).map((post) => {
-        const { title, available } = post;
-        if (available) {
-            return (
-                <li className="list-group-item text-right">
-                    <span className="pull-left">
-                        <strong>{title}</strong>
-                    </span>
-                    <br />
-                    <a type="button" className="btn btn-primary" href="/editPost" onClick={() => { savePost(post) }} >Modifier</a>
-                    <a type="button" className="btn btn-danger" href="#/account" onClick={() => { deletePost(post) }} >supprimer</a>
-                </li>
-            )
-        } else {
-            return (
-                <></>
-            )
-        }
+        const { title } = post;
+
+        return (
+            <li className="list-group-item text-right">
+                <span className="pull-left">
+                    <strong>{title}</strong>
+                </span>
+                <br />
+                <a type="button" className="btn btn-primary" href="/editPost" onClick={() => { savePost(post) }} >Modifier</a>
+                <a type="button" className="btn btn-danger" href="#/account" onClick={() => { deletePost(post) }} >supprimer</a>
+            </li>
+        )
+
     }
     )
 
     return (
         <>
             <div className="container bootstrap snippet">
-                <br/><br/>
+                <br /><br />
                 <div className="row">
                     <div className="col-sm-3">{/* <!--left col--> */}
 
@@ -93,16 +89,16 @@ const Account = () => {
                             <div className="tab-pane active" id="home">
                                 <h2>Mon profile</h2>
                                 <hr />
-                                <form className="form" style={{width: "100%"}} on
+                                <form className="form" style={{ width: "100%" }} on
                                     mit={submit} onChange={change}>
-                                    <div className="form-group" style={{marginBottom: "20px"}}>
+                                    <div className="form-group" style={{ marginBottom: "20px" }}>
 
                                         <div className="col-xs-6">
                                             <label for="first_name"><h4>First name</h4></label>
                                             <input type="text" className="form-control" name="user.firstname" id="first_name" placeholder="first name" defaultValue={user.firstname} title="enter your first name if any." />
                                         </div>
                                     </div>
-                                    <div className="form-group" style={{marginBottom: "20px"}}>
+                                    <div className="form-group" style={{ marginBottom: "20px" }}>
 
                                         <div className="col-xs-6">
                                             <label for="last_name"><h4>Last name</h4></label>
@@ -110,7 +106,7 @@ const Account = () => {
                                         </div>
                                     </div>
 
-                                    <div className="form-group" style={{marginBottom: "20px"}}>
+                                    <div className="form-group" style={{ marginBottom: "20px" }}>
 
                                         <div className="col-xs-6">
                                             <label for="phone"><h4>Phone</h4></label>
@@ -118,21 +114,21 @@ const Account = () => {
                                         </div>
                                     </div>
 
-                                    <div className="form-group" style={{marginBottom: "20px"}}>
+                                    <div className="form-group" style={{ marginBottom: "20px" }}>
 
                                         <div className="col-xs-6">
                                             <label for="email"><h4>Email</h4></label>
                                             <input type="email" className="form-control" name="user.email" id="email" placeholder="you@email.com" defaultValue={user.email} title="enter your email." />
                                         </div>
                                     </div>
-                                    <div className="form-group" style={{marginBottom: "20px"}}>
+                                    <div className="form-group" style={{ marginBottom: "20px" }}>
 
                                         <div className="col-md-12">
                                             <label for="password"><h4>Password</h4></label>
                                             <input type="password" className="form-control" name="user.password" id="password" placeholder="password" defaultValue={user.password} title="enter your password." />
                                         </div>
                                     </div>
-                                    <div className="form-group" style={{marginBottom: "20px"}}>
+                                    <div className="form-group" style={{ marginBottom: "20px" }}>
                                         <div className="col-xs-12">
                                             <br />
                                             <button className="btn btn-lg btn-success" type="submit"><i className="glyphicon glyphicon-ok-sign"></i> Save</button>
