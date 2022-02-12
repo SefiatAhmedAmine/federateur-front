@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 
@@ -19,7 +19,8 @@ const Categories = () => {
             })
             .catch(err => console.log(err));
     }
-    charge();
+
+    useEffect(() => { charge() }, []);
 
     const savePost = (smg) => {
         window.localStorage.setItem('post', JSON.stringify(smg));
