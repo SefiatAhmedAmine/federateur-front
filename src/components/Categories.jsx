@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getCategory, getPost, findPostByUser } from '../services/Api';
+import { getCategory, getPost, findPostByUser, findResponsesByUser } from '../services/Api';
 
 import axios from 'axios';
 
@@ -8,7 +8,7 @@ const Categories = () => {
     const [allCategories, setCategories] = useState([])
     const [allPosts, setPosts] = useState([])
     //const [postUser, setPostUser] = useState()
-    
+
     useEffect(
         () => {
             async function getDataCategories() {
@@ -56,6 +56,26 @@ const Categories = () => {
                 }
             }
             findPost();
+        },
+        []
+    );
+
+    useEffect(
+        () => {
+            async function findResponses() {
+                try {
+                    let user = JSON.parse(window.localStorage.getItem('user'));
+                    const response = await findResponsesByUser(user);
+                    console.log(response);
+                    window.localStorage.setItem('responses', JSON.stringify(response));
+                    //setPostUser(response);
+                    //console.log(postUser)
+
+                } catch ({ response }) {
+                    console.log("Erreur getCategory");
+                }
+            }
+            findResponses();
         },
         []
     );

@@ -5,16 +5,21 @@ const Account = () => {
     const [user, setUser] = useState([])
     const [response, setResponse] = useState([])
     const [allPosts, setPosts] = useState([])
+    const [allResponses, setResponses] = useState([])
 
     useEffect(() => {
         setUser(JSON.parse(window.localStorage.getItem('user')));
         setPosts(JSON.parse(window.localStorage.getItem('posts')));
+        setResponses(JSON.parse(window.localStorage.getItem('responses')));
     }, []);
 
 
 
     const savePost = (smg) => {
         window.localStorage.setItem('post', JSON.stringify(smg));
+    }
+    const seeResponse = (smg) => {
+        window.localStorage.setItem('response', JSON.stringify(smg));
     }
 
     const deletePost = async (post) => {
@@ -64,6 +69,20 @@ const Account = () => {
 
     }
     )
+    const Reponses = allResponses && Object.values(allResponses).map((response) => {
+        const { title } = response;
+        return (
+            <li className="list-group-item text-right">
+                <span className="pull-left">
+                    <strong>{title}</strong>
+                </span>
+                <br />
+                <a type="button" className="btn btn-primary" href="/respond" onClick={() => { seeResponse(response) }} >Consulter</a>
+            </li>
+        )
+
+    }
+    )
 
     return (
         <>
@@ -84,7 +103,7 @@ const Account = () => {
                         </ul>
 
                     </div>{/* <!--/col-3--> */}
-                    <div className="col-sm-9">
+                    <div className="col-sm-6">
                         <div className="tab-content">
                             <div className="tab-pane active" id="home">
                                 <h2>Mon profile</h2>
@@ -144,7 +163,19 @@ const Account = () => {
 
                         {/* <!--/tab-pane--> */}
                     </div>{/* <!--/tab-content--> */}
+                    <div className="col-sm-3">{/* <!--left col--> */}
 
+
+                        <div className="panel panel-default">
+                            <div className="panel-heading"><h2>Mes Reponses</h2><i className="fa fa-link fa-1x"></i></div>
+                        </div>
+
+                        <ul className="list-group">
+                            <li className="list-group-item text-muted">Reponses <i className="fa fa-dashboard fa-1x"></i></li>
+                            {Reponses}
+                        </ul>
+
+                    </div>{/* <!--/col-3--> */}
                 </div>{/* <!--/col-9--> */}
             </div>{/* <!--/row--> */}
         </>

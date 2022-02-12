@@ -24,3 +24,10 @@ export function findPostByUser(user) {
         .post(HOST + 'v1/api/users/posts', user)
         .then(res => res.data)
 }
+
+
+export function findResponsesByUser(user) {
+    return axios
+        .post(HOST+ '/v1/api/posts/responses/users', user)
+        .then(res => res.data)
+}
