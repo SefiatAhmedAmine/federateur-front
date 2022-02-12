@@ -27,7 +27,7 @@ const Categories = () => {
                 console.log(res.data)
             })
             .catch(err => console.log(err));
-    }, []);
+    }, [allCategories]);
 
     window.localStorage.setItem('categories', JSON.stringify(allCategories));
 

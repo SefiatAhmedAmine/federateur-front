@@ -50,8 +50,9 @@ function CreatedPost() {
     }
 
     const handleChangeCategory = (event) => {
-
-        setFormulaire({ ...formulaire, ["category"]: categories[event.target.value] })
+        let f = formulaire ;
+        f.category=categories[event.target.value];
+        setFormulaire(f)
         console.log(event.target.value)
         console.log(formulaire)
 

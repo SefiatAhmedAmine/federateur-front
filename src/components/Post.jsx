@@ -23,14 +23,10 @@ export default class Post extends Component {
     }
     change = (event) => {
         //console.log(event.target.name)
-        this.setState({
-            ["response"]: {
-                "respondedBy": JSON.parse(localStorage.getItem("user")),
-                "verified": false,
-                "message": event.target.value
-            }
-        });
-        console.log(this.state.response)
+        let r = this.state.response;
+        r.message = event.target.value;
+        this.setState({ reponse: r })
+        console.log("---",this.state.response)
     }
 
     sleep = (milliseconds) => {
