@@ -6,7 +6,8 @@ const Categories = () => {
 
     const [allCategories, setCategories] = useState([])
     const [allPosts, setPosts] = useState([])
-    const charge = async () => {
+
+    useEffect(() => {
         axios.get('https://fedback.azurewebsites.net/v1/api/categories/')
             .then((res) => {
                 setCategories(res.data);
@@ -18,7 +19,7 @@ const Categories = () => {
                 setPosts(res.data);
             })
             .catch(err => console.log(err));
-        let user = JSON.parse(window.localStorage.getItem('user')) ;
+        let user = JSON.parse(window.localStorage.getItem('user'));
         console.log(user)
         axios.post('https://fedback.azurewebsites.net/v1/api/users/posts', user)
             .then((res) => {
@@ -26,9 +27,8 @@ const Categories = () => {
                 console.log(res.data)
             })
             .catch(err => console.log(err));
-    }
+    }, []);
 
-    useEffect(() => { charge() }, [charge]);
     window.localStorage.setItem('categories', JSON.stringify(allCategories));
 
     const savePost = (smg) => {
