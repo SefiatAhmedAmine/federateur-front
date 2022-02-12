@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Component } from "react";
+import { Link } from 'react-router-dom'
 
 
 export default class EditPost extends Component {
@@ -10,6 +11,36 @@ export default class EditPost extends Component {
         };
         this.state.post = JSON.parse(window.localStorage.getItem('post'));
     }
+
+    changeTitle = (event) => {
+        //console.log(event.target.name)
+        let p = this.state.post;
+        p.title = event.target.value;
+        this.setState({ post: p })
+        console.log("---",this.state.post)
+    }
+
+    changeDescription = (event) => {
+        //console.log(event.target.name)
+        let d = this.state.post;
+        d.description = event.target.value;
+        this.setState({ post: d })
+        console.log("---",this.state.post)
+    }
+
+    changeAvailable = (event) => {
+        //console.log(event.target.name)
+        let a = this.state.post;
+        if(event.target.value == "true") {
+            a.available = true;
+        }
+        if(event.target.value == "false") {
+            a.available = false;
+        }
+        this.setState({ post: a })
+        console.log("---",this.state.post)
+    }
+
     accepter(respond) {
         //update respond
         respond.verified = true;
@@ -32,6 +63,14 @@ export default class EditPost extends Component {
             })
             .catch(err => console.log(err));
     }
+
+    modifier = (poste) => {
+        //console.log("-->", poste)
+        // axios.put('https://fedback.azurewebsites.net/v1/api/posts/update', poste).then((res => {
+        //     console.log(res.data);
+        // }))
+    }
+
     render() {
         return (
             <div className="container">
@@ -41,16 +80,16 @@ export default class EditPost extends Component {
                     <div className="p-3 py-5">
                         <h2 className="text-center" style={{fontFamily: "fantasy"}}>Mon poste</h2>
                         <div className="row mt-3">
-                            <div className="col-md-12" style={{marginBottom: "20px"}}><label className="labels">Titre</label><input type="text" className="form-control" placeholder="enter phone number" defaultValue={this.state.post.title} /></div>
-                            <div className="col-md-12" style={{marginBottom: "20px"}}><label className="labels">description</label><textarea type="text" className="form-control" placeholder="enter address" defaultValue={this.state.post.description} ></textarea></div>
+                            <div className="col-md-12" style={{marginBottom: "20px"}}><label className="labels">Titre</label><input type="text" onChange={this.changeTitle} className="form-control" placeholder="enter phone number" defaultValue={this.state.post.title} /></div>
+                            <div className="col-md-12" style={{marginBottom: "20px"}}><label className="labels">description</label><textarea type="text" onChange={this.changeDescription} className="form-control" placeholder="enter address" defaultValue={this.state.post.description} ></textarea></div>
                             <div className="col-md-12" style={{marginBottom: "20px"}}><label className="labels">Is available</label>
-                                <select className="form-control">
+                                <select className="form-control" onChange={this.changeAvailable}>
                                     <option className="form-control" value="true">True</option>
                                     <option className="form-control" value="false">False</option>
                                 </select>
                             </div>
                         </div>
-                        <div className="mt-5 text-center"><button className="btn btn-primary profile-button" type="button">Enregistrer</button></div>
+                        <div className="mt-5 text-center"><button className="btn btn-primary profile-button" onClick={() => {axios.put('https://fedback.azurewebsites.net/v1/api/posts/update', this.state.post).then((res => {console.log(res.data);}))}} type="button">Enregistrer</button></div>
                     </div>
                 </div>
                 <div className="" >
@@ -75,7 +114,7 @@ export default class EditPost extends Component {
                                                             <div className="panel-body">{message}
                                                             </div>
                                                         </div><br/>
-                                                        <div className="d-grid gap-2 col-2 mr-auto"><button type="button" className="btn btn-success btn-sm" onClick={() => { this.accepter(respond) }}>Accepter</button></div>
+                                                        <div className="d-grid gap-2 col-2 mr-auto"><Link role='button' to='/categories' type="button" className="btn btn-success btn-sm" onClick={() => { this.accepter(respond) }}>Accepter</Link></div>
                                                     </div>
                                                     <hr />
                                                 </div>

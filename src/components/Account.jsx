@@ -52,13 +52,13 @@ const Account = () => {
         const { title, available } = post;
         if (available) {
             return (
-                <li class="list-group-item text-right">
-                    <span class="pull-left">
+                <li className="list-group-item text-right">
+                    <span className="pull-left">
                         <strong>{title}</strong>
                     </span>
                     <br />
-                    <a type="button" class="btn btn-primary" href="/editPost" onClick={() => { savePost(post) }} >Modifier</a>
-                    <a type="button" class="btn btn-danger" href="#/account" onClick={() => { deletePost(post) }} >supprimer</a>
+                    <a type="button" className="btn btn-primary" href="/editPost" onClick={() => { savePost(post) }} >Modifier</a>
+                    <a type="button" className="btn btn-danger" href="#/account" onClick={() => { deletePost(post) }} >supprimer</a>
                 </li>
             )
         } else {
@@ -71,70 +71,71 @@ const Account = () => {
 
     return (
         <>
-            <div class="container bootstrap snippet">
+            <div className="container bootstrap snippet">
+                <br/><br/>
+                <div className="row">
+                    <div className="col-sm-3">{/* <!--left col--> */}
 
-                <div class="row">
-                    <div class="col-sm-3">{/* <!--left col--> */}
 
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading"><h2>Mes posts</h2><i class="fa fa-link fa-1x"></i></div>
+                        <div className="panel panel-default">
+                            <div className="panel-heading"><h2>Mes postes</h2><i className="fa fa-link fa-1x"></i></div>
                         </div>
 
 
-                        <ul class="list-group">
-                            <li class="list-group-item text-muted">Posts <i class="fa fa-dashboard fa-1x"></i></li>
+                        <ul className="list-group">
+                            <li className="list-group-item text-muted">Postes <i className="fa fa-dashboard fa-1x"></i></li>
                             {Posts}
                         </ul>
 
                     </div>{/* <!--/col-3--> */}
-                    <div class="col-sm-9">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="home">
+                    <div className="col-sm-9">
+                        <div className="tab-content">
+                            <div className="tab-pane active" id="home">
+                                <h2>Mon profile</h2>
                                 <hr />
-                                <form class="form" on
+                                <form className="form" style={{width: "100%"}} on
                                     mit={submit} onChange={change}>
-                                    <div class="form-group">
+                                    <div className="form-group" style={{marginBottom: "20px"}}>
 
-                                        <div class="col-xs-6">
+                                        <div className="col-xs-6">
                                             <label for="first_name"><h4>First name</h4></label>
-                                            <input type="text" class="form-control" name="user.firstname" id="first_name" placeholder="first name" defaultValue={user.firstname} title="enter your first name if any." />
+                                            <input type="text" className="form-control" name="user.firstname" id="first_name" placeholder="first name" defaultValue={user.firstname} title="enter your first name if any." />
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div className="form-group" style={{marginBottom: "20px"}}>
 
-                                        <div class="col-xs-6">
+                                        <div className="col-xs-6">
                                             <label for="last_name"><h4>Last name</h4></label>
-                                            <input type="text" class="form-control" name="user.lastname" id="last_name" placeholder="last name" defaultValue={user.lastname} title="enter your last name if any." />
+                                            <input type="text" className="form-control" name="user.lastname" id="last_name" placeholder="last name" defaultValue={user.lastname} title="enter your last name if any." />
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div className="form-group" style={{marginBottom: "20px"}}>
 
-                                        <div class="col-xs-6">
+                                        <div className="col-xs-6">
                                             <label for="phone"><h4>Phone</h4></label>
-                                            <input type="text" class="form-control" name="user.phoneNumber" id="phone" defaultValue={user.phoneNumber} placeholder="enter phone" title="enter your phone number if any." />
+                                            <input type="text" className="form-control" name="user.phoneNumber" id="phone" defaultValue={user.phoneNumber} placeholder="enter phone" title="enter your phone number if any." />
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div className="form-group" style={{marginBottom: "20px"}}>
 
-                                        <div class="col-xs-6">
+                                        <div className="col-xs-6">
                                             <label for="email"><h4>Email</h4></label>
-                                            <input type="email" class="form-control" name="user.email" id="email" placeholder="you@email.com" defaultValue={user.email} title="enter your email." />
+                                            <input type="email" className="form-control" name="user.email" id="email" placeholder="you@email.com" defaultValue={user.email} title="enter your email." />
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div className="form-group" style={{marginBottom: "20px"}}>
 
-                                        <div class="col-xs-6">
+                                        <div className="col-md-12">
                                             <label for="password"><h4>Password</h4></label>
-                                            <input type="password" class="form-control" name="user.password" id="password" placeholder="password" defaultValue={user.password} title="enter your password." />
+                                            <input type="password" className="form-control" name="user.password" id="password" placeholder="password" defaultValue={user.password} title="enter your password." />
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-xs-12">
+                                    <div className="form-group" style={{marginBottom: "20px"}}>
+                                        <div className="col-xs-12">
                                             <br />
-                                            <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                                            <button className="btn btn-lg btn-success" type="submit"><i className="glyphicon glyphicon-ok-sign"></i> Save</button>
                                         </div>
                                     </div>
                                 </form>

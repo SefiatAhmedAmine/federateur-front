@@ -58,6 +58,17 @@ function CreatedPost() {
 
     }
 
+    const sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
+    const refreshPage = () => {
+        sleep(2000).then(r => {
+            window.location.reload();
+        })
+
+    }
+
     const handleSubmit = async event => {
         event.preventDefault();
 
@@ -66,6 +77,7 @@ function CreatedPost() {
             //data.category = categories[parseInt(formulaire.category)];
             //setFormulaire(data);
             const submit = await createPost(formulaire);
+            refreshPage();
             console.log(submit);
         } catch ({ response }) {
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom'
 import axios from 'axios';
 
 export default class Post extends Component {
@@ -34,7 +34,7 @@ export default class Post extends Component {
     }
 
     refreshPage = () => {
-        this.sleep(2000).then(r => {
+        this.sleep(1000).then(r => {
             window.location.reload();
         })
 
@@ -49,6 +49,7 @@ export default class Post extends Component {
         let r = this.state.response
         r.message = "";
         this.setState({ response: r })
+        this.refreshPage();
     }
     static loadPost() {
         return JSON.parse(window.localStorage.getItem('post'));
@@ -94,7 +95,7 @@ export default class Post extends Component {
                                                         <textarea type="text" className="form-control" placeholder="Message de réponse" name="response.message" onChange={this.change} rows="5" cols="90"></textarea>
                                                         <div className="input-group-prepend">
                                                             <span className="input-group-text"><i className="fa fa-send">
-                                                                <button className='btn-block btn btn-primary' onClick={this.submit}>Envoyer une réponse au proprietaire du post </button>
+                                                                <Link role='button' to='/categories' className='btn-block btn btn-primary' onClick={this.submit}>Envoyer une réponse au proprietaire du post </Link>
                                                             </i></span>
                                                         </div>
                                                     </div>
