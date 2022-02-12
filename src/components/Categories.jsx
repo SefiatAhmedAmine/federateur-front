@@ -6,29 +6,49 @@ const Categories = () => {
 
     const [allCategories, setCategories] = useState([])
     const [allPosts, setPosts] = useState([])
-
-    useEffect(() => {
-        axios.get('https://fedback.azurewebsites.net/v1/api/categories/')
+    const charge = async () => {
+        await axios.get('https://fedback.azurewebsites.net/v1/api/categories/')
             .then((res) => {
                 setCategories(res.data);
                 window.localStorage.setItem('categories', JSON.stringify(allCategories));
             })
             .catch(err => console.log(err));
-        axios.get('https://fedback.azurewebsites.net/v1/api/posts/')
+        await axios.get('https://fedback.azurewebsites.net/v1/api/posts/')
             .then((res) => {
                 setPosts(res.data);
             })
             .catch(err => console.log(err));
         let user = JSON.parse(window.localStorage.getItem('user'));
         console.log(user)
-        axios.post('https://fedback.azurewebsites.net/v1/api/users/posts', user)
+        await axios.post('https://fedback.azurewebsites.net/v1/api/users/posts', user)
             .then((res) => {
                 window.localStorage.setItem('posts', JSON.stringify(res.data));
                 console.log(res.data)
             })
             .catch(err => console.log(err));
-    }, [allCategories]);
+    }
 
+    useEffect(async () => {
+        await axios.get('https://fedback.azurewebsites.net/v1/api/categories/')
+            .then((res) => {
+                setCategories(res.data);
+                window.localStorage.setItem('categories', JSON.stringify(allCategories));
+            })
+            .catch(err => console.log(err));
+        await axios.get('https://fedback.azurewebsites.net/v1/api/posts/')
+            .then((res) => {
+                setPosts(res.data);
+            })
+            .catch(err => console.log(err));
+        let user = JSON.parse(window.localStorage.getItem('user'));
+        console.log(user)
+        await axios.post('https://fedback.azurewebsites.net/v1/api/users/posts', user)
+            .then((res) => {
+                window.localStorage.setItem('posts', JSON.stringify(res.data));
+                console.log(res.data)
+            })
+            .catch(err => console.log(err));
+    }, []);
     window.localStorage.setItem('categories', JSON.stringify(allCategories));
 
     const savePost = (smg) => {
