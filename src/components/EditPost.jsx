@@ -31,10 +31,10 @@ export default class EditPost extends Component {
     changeAvailable = (event) => {
         //console.log(event.target.name)
         let a = this.state.post;
-        if(event.target.value == "true") {
+        if(event.target.value === "true") {
             a.available = true;
         }
-        if(event.target.value == "false") {
+        if(event.target.value === "false") {
             a.available = false;
         }
         this.setState({ post: a })
