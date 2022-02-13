@@ -12,8 +12,15 @@ import AccountsManager from './pages/Admin/AccountsManager';
 import DefaultTemplate from './templates/default/DefaultTemplate';
 import AdminTemplate from './templates/admin/AdminTemplate';
 
+import CreatedPost from './components/CreatedPost'
+import Register from './pages/RegisterPage'
+import Login from './pages/Login'
+import About from './pages/About'
+import Respond from './components/Respond';
 
 function App() {
+  const login = !!localStorage.token?<Home/>:<Login/>
+  const register = !!localStorage.token?<Home/>:<Register/>
   return (
     <div className="App">
 
@@ -52,20 +59,24 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<DefaultTemplate />} >
-            <Route path="/" element={<Home />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/posts" element={<Post />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/editPost" element={<EditPost />} />
-          </Route>
 
           <Route path='/admin' element={<AdminTemplate />}>
             <Route path='/admin' element={<AdminDash />} />
             <Route path="/admin/categories" element={<CategoriesManager />} />
             <Route path="/admin/accounts" element={<AccountsManager />} />
           </Route>
+
+          <Route path="/" element={<Home />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/contact" element={<Contact/>} />
+          <Route path="/Post" element={<Post />} /> 
+          <Route path="/account" element={<Account />} /> 
+          <Route path="/editPost" element={<EditPost />} />
+          <Route path="/respond" element={<Respond />} />
+          <Route path="/createdPost" element={<CreatedPost />} />
+          <Route path="/about" element={<About />}/>  
+          <Route path="/login" element={login}/>
+          <Route path="/register" element={register}/>
 
           <Route>404!</Route>
         </Routes>
