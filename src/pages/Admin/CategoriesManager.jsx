@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { dummyCategories } from '../../dummyData/DummyData';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from '@mui/x-data-grid';

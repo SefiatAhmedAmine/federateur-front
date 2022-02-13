@@ -1,5 +1,4 @@
 import React from 'react'
-import AdminHeader from '../../components/header/AdminHeader';
 
 export default function AdminDash() {
   return (

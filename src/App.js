@@ -11,11 +11,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-    
-          <Route path='/admin' element={<AdminTemplate />}>
-            <Route path='/admin' element={<AdminDash />} />
-            <Route path="/admin/categories" element={<CategoriesManager />} />
-            <Route path="/admin/accounts" element={<AccountsManager />} />
+
+          <Route path='/' element={<AdminTemplate />}>
+            <Route path='/' element={<AdminDash />} />
+            <Route path="/categories" element={<CategoriesManager />} />
+            <Route path="/accounts" element={<AccountsManager />} />
           </Route>
 
           <Route>404!</Route>
