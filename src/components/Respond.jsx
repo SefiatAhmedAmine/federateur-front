@@ -35,13 +35,16 @@ const Respond = () => {
                                     <div class="d-flex flex-row mb-2">
                                         <div class="d-flex flex-column ml-2"> <small class="comment-text">{response.responds[0].message}</small>
                                             <div class="d-flex flex-row align-items-center status">
+
                                                 {(response.responds[0].verified) && (<>
                                                     <small>Verifié : Oui</small>
-                                                </>) || (<>
-                                                    <small>Verifié : Non</small>
                                                 </>)
                                                 }
 
+                                                {(!response.responds[0].verified) && (<>
+                                                    <small>Verifié : Non</small>
+                                                </>)
+                                                }
 
                                                 <small></small> </div>
                                         </div>
