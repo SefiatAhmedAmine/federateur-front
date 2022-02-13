@@ -7,7 +7,7 @@ export default function AdminHeader() {
     return (
         <header id="header">
         <div className="container d-flex align-items-center">
-            <h1 className="logo me-auto"><a href="/">Medilab</a></h1>
+            <h1 className="logo me-auto"><a href="/admin">Donation social media platform</a></h1>
             <nav id="navbar" className="navbar order-last order-lg-0">
                 <ul>
 
