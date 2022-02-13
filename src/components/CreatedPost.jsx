@@ -1,15 +1,12 @@
 import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { HOST } from '../contexts/data';
 import '../image.css';
 import { getCategory, createPost } from '../services/Api';
 
 function CreatedPost() {
 
     const [image, setImage] = useState();
-
-    const [imageData, setImageData] = useState({});
 
     const [categories, setCategories] = useState([])
 
@@ -100,7 +97,7 @@ function CreatedPost() {
                 formulaire.imageLink = res.data.imageLink;
                 
                 const submit = createPost(formulaire);
-                //refreshPage();
+                refreshPage();
                 console.log(submit);
             } catch ({ response }) {
     
