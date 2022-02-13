@@ -12,6 +12,7 @@ import AccountsManager from './pages/Admin/AccountsManager';
 import DefaultTemplate from './templates/default/DefaultTemplate';
 import AdminTemplate from './templates/admin/AdminTemplate';
 
+
 function App() {
   return (
     <div className="App">
