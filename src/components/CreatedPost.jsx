@@ -1,12 +1,15 @@
 import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { HOST } from '../contexts/data';
 import '../image.css';
 import { getCategory, createPost } from '../services/Api';
 
 function CreatedPost() {
 
-    // const [images, setImages] = useState();
+    const [image, setImage] = useState();
+
+    const [imageData, setImageData] = useState({});
 
     const [categories, setCategories] = useState([])
 
@@ -14,12 +17,13 @@ function CreatedPost() {
         "title": "",
         "category": null,
         "description": "",
-        "createdAt": "2016-02-29T22:02:03.752Z",
         "responds": [],
         "available": true,
         "type": "",
         "createdBy": JSON.parse(localStorage.getItem("user"))
     })
+
+    let formData = new FormData();
 
     useEffect(
         () => {
@@ -42,11 +46,15 @@ function CreatedPost() {
 
         setFormulaire({ ...formulaire, [name]: value })
 
-        //let data = formulaire;
-        //data.category = categories[parseInt(formulaire.category)];
-        //setFormulaire(data);
         console.log(formulaire)
 
+    }
+
+    const handleChangeImage = (event) => {
+        const file = event.target.files[0];
+        setImage(file);
+        
+        console.log("-->", image)
     }
 
     const handleChangeCategory = (event) => {
@@ -71,18 +79,40 @@ function CreatedPost() {
 
     const handleSubmit = async event => {
         event.preventDefault();
+        formData.append('file', image);
+        var config = {
+            method: 'post',
+            url: 'https://fedback.azurewebsites.net/files/upload',
+            headers: {
+                'content-type': 'multipart/form-data'
+            },
+            data : formData
+        };
+        axios(config)
+        .then(res => {
+            console.log("***", res.data.imageLink);
+            try {
+            
 
-        try {
-            //let data = formulaire;
-            //data.category = categories[parseInt(formulaire.category)];
-            //setFormulaire(data);
-            const submit = await createPost(formulaire);
-            refreshPage();
-            console.log(submit);
-        } catch ({ response }) {
+                //let data = formulaire;
+                //data.category = categories[parseInt(formulaire.category)];
+                console.log("444", formulaire);
+                formulaire.imageLink = res.data.imageLink;
+                
+                const submit = createPost(formulaire);
+                //refreshPage();
+                console.log(submit);
+            } catch ({ response }) {
+    
+                console.log("Erreur");
+            }
 
-            console.log("Erreur");
-        }
+        })
+        .catch(error => {
+            console.log(error);
+        })
+
+        
         let user = JSON.parse(window.localStorage.getItem('user'));
         console.log(user)
         axios.post('https://fedback.azurewebsites.net/v1/api/users/posts', user)
@@ -139,7 +169,7 @@ function CreatedPost() {
 
                         <div className="row py-4">
                             <div className="col-lg-6 mx-auto">
-                                <input type="file" className="form-control" id="imagePost" accept="image/png, image/gif, image/jpeg" />
+                                <input type="file" className="form-control" name="imageLink" id="imageLink" onChange={handleChangeImage} accept="image/png, image/gif, image/jpeg" />
                             </div>
                         </div>
 
