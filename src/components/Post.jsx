@@ -79,7 +79,7 @@ export default class Post extends Component {
                                         <a className="badge bg-secondary text-decoration-none link-light" href="#!"> {this.state.post.category.name} </a>
                                     </header>
                                     {/*  <!-- Preview image figure--> */}
-                                    <figure className="mb-4"><img className="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
+                                    <figure className="mb-4"><img className="img-fluid rounded" src={this.state.post.imageLink} alt="..." /></figure>
                                     {/*  <!-- Post content--> */}
                                     <section className="mb-5">
                                         <p className="fs-5 mb-4">{this.state.post.description}</p>

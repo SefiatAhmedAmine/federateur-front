@@ -14,6 +14,7 @@ export function getPost() {
 }
 
 export function createPost(formulaire) {
+    console.log("555", formulaire)
     return axios
         .post(HOST + 'v1/api/posts/save', formulaire)
         .then(res => res.data)
