@@ -19,8 +19,8 @@ import About from './pages/About'
 import Respond from './components/Respond';
 
 function App() {
-  const login = !!localStorage.token?<Home/>:<Login/>
-  const register = !!localStorage.token?<Home/>:<Register/>
+  const login = !!localStorage.token ? <Home /> : <Login />
+  const register = !!localStorage.token ? <Home /> : <Register />
   return (
     <div className="App">
 
@@ -65,19 +65,19 @@ function App() {
             <Route path="/admin/categories" element={<CategoriesManager />} />
             <Route path="/admin/accounts" element={<AccountsManager />} />
           </Route>
-
-          <Route path="/" element={<Home />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/contact" element={<Contact/>} />
-          <Route path="/Post" element={<Post />} /> 
-          <Route path="/account" element={<Account />} /> 
-          <Route path="/editPost" element={<EditPost />} />
-          <Route path="/respond" element={<Respond />} />
-          <Route path="/createdPost" element={<CreatedPost />} />
-          <Route path="/about" element={<About />}/>  
-          <Route path="/login" element={login}/>
-          <Route path="/register" element={register}/>
-
+          <Route path='/' element={<DefaultTemplate/>}>
+            <Route path="/" element={<Home />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/Post" element={<Post />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/editPost" element={<EditPost />} />
+            <Route path="/respond" element={<Respond />} />
+            <Route path="/createdPost" element={<CreatedPost />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={login} />
+            <Route path="/register" element={register} />
+          </Route>
           <Route>404!</Route>
         </Routes>
       </BrowserRouter>
