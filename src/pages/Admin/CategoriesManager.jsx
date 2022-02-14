@@ -73,7 +73,7 @@ export default function CategoriesManager() {
           console.log(rowID);
           var newRows = [];
           for (let i = 0; i < rows.length; i++) {
-            if (rows[i].id != rowID) {
+            if (rows[i].id !== rowID) {
               newRows.push(rows[i]);
             }
           }
@@ -148,9 +148,9 @@ export default function CategoriesManager() {
         autoHeight {...rows}
       />
 
-      <CategoryModel id={'addModel'} title={'Add a row'} rows={rows} action={addRow} />
-      <CategoryModel id={'updateModel'} title={'Update a row'} rows={rows} action={updateRow} />
-      <CategoryModel id={'deleteModel'} title={'Delete a row'} rows={rows} action={deleteRow} />
+      <CategoryModel id={'addModel'} title={'Add a row'} action={addRow} />
+      <CategoryModel id={'updateModel'} title={'Update a row'} action={updateRow} />
+      <CategoryModel id={'deleteModel'} title={'Delete a row'} action={deleteRow} />
 
     </div>
   );

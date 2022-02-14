@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function AccountModel({id, title, rows, action }) {
+export default function AccountModel({id, title, action }) {
 
   
   return (

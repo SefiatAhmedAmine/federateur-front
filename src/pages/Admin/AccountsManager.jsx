@@ -4,16 +4,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import Button from '../../components/Button';
-import CategoryModel from '../../components/CategoryModel';
 import AccountModel from '../../components/AccountModel';
 
-let action = null;
-
 export default function AccountsManager() {
-  // const [action, setAction] = useState(null);
-  const [actionText, setActionText] = useState('');
-
-
 
   const columns = [
     { field: 'id', headerName: 'ID', flex: 1 },
@@ -86,7 +79,7 @@ export default function AccountsManager() {
       });
   };
 
-    // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   // ------------------------------- delete a row --------------------------------
   const deleteRow = () => {
     var form = document.getElementById('deleteModelForm').elements;
@@ -98,9 +91,9 @@ export default function AccountsManager() {
           console.log(rowID);
           var newRows = [];
           for (let i = 0; i < rows.length; i++) {
-            if (rows[i].id != rowID) {
+            if (rows[i].id !== rowID) {
               newRows.push(rows[i]);
-            }        
+            }
           }
           return newRows;
         });
@@ -110,44 +103,43 @@ export default function AccountsManager() {
       });
 
   };
-  // ------------------------------------------------------------------------------
 
-  // const handleUpdateRow = e => {
-  //   // const {name, value} = e;
-  //   console.log(e.target.value)
-  //   action = () => {
-  //     // setRows((prevRows) => {
-  //     //   const rowToUpdateIndex = e.target.value
-  //     //   var form = document.getElementById('addRowForm').elements;
+  // ----------------------------------------------------------------------------
+  // --------------------------------- update row -------------------------------
+  const updateRow = () => {
+    var form = document.getElementById('updateModelForm').elements;
+    var data = {}
+    for (let i = 0; i < form.length; i++) {
+      var item = form.item(i);
+      // console.log(item.name)
+      if (item.name === 'id') data[item.name] = parseInt(item.value);
+      else data[item.name] = item.value;
+    }
+    console.log(data)
 
-  //     //   var data = {}
-  //     //   for (let i = 0; i < form.length; i++) {
-  //     //     var item = form.item(i);
-  //     //     if (item.value != '')
-  //     //     data[item.name] = item.value;
-  //     //   }
-  //     //   console.log(data + ' // ind = ' + rowToUpdateIndex)
-  //     //   prevRows.map((row, index) => {
-  //     //     if (row.id === rowToUpdateIndex) {alert('hello ' + row.id)}
-  //     //   }
-  //     //   );
-  //     //   return rows;
-  //     // });
-  //   }
-  //   setActionText('Update row')
-  // }
+    axios.put(process.env.REACT_APP_USERS_URL + "update", data)
+      .then(function (response) {
+        setRows((prevRows) => {
+          var newRows = prevRows.map(row =>
+            row.id === parseInt(data.id) ? { ...row, ...data } : row,
+          );
+          console.log(newRows);
+          return newRows;
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-  const handleAddRow = () => {
-    action = addRow;
-    setActionText('Add row')
-  }
+  };
+
 
   return (
 
     <div>
       <h2>Gestionnaire de comptes </h2>
 
-      <button onClick={handleAddRow} type="button" data-bs-toggle="modal" data-bs-target="#addModel">
+      <button onClick={addRow} type="button" data-bs-toggle="modal" data-bs-target="#addModel">
         Add a row
       </button>
 
@@ -159,9 +151,9 @@ export default function AccountsManager() {
         autoHeight {...rows}
       />
 
-      <AccountModel id={'addModel'} title={'Add a row'} rows={rows} action={addRow}/>
-      <AccountModel id={'updateModel'} title={'Update a row'} rows={rows} />
-      <AccountModel id={'deleteModel'} title={'Delete a row'} rows={rows} action={deleteRow}/>
+      <AccountModel id={'addModel'} title={'Add a row'} rows={rows} action={addRow} />
+      <AccountModel id={'updateModel'} title={'Update a row'} rows={rows} action={updateRow} />
+      <AccountModel id={'deleteModel'} title={'Delete a row'} rows={rows} action={deleteRow} />
     </div >
   );
 

@@ -1,9 +1,6 @@
 import React from 'react'
-import axios from 'axios';
 
-export default function CategoryModel({ id, title, rows, action }) {
-
-  URL = process.env.REACT_APP_CATEGORIES_URL
+export default function CategoryModel({ id, title, action }) {
   
   return (
     <div>{/* <!-- The Modal --> */}

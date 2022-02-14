@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import DeleteIcon from '@mui/icons-material/Delete';
+import React from 'react'
 
 export default function Button({ value, child, model}) {
 
