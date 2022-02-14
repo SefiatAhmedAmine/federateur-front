@@ -3,25 +3,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
-
-const columns = [
-  { field: 'id', headerName: 'ID', flex: 0.1 },
-  { field: 'name', headerName: 'Name', flex: 0.2 },
-  { field: 'description', headerName: 'Description', flex: 2 },
-  {
-    field: 'actions', headerName: 'Actions', width: 100,
-    renderCell: (params) => (
-      <div>
-        <button>
-          <EditIcon />
-        </button>
-        <button>
-          <DeleteIcon />
-        </button>
-      </div>
-    ),
-  },
-];
+import Button from '../../components/Button';
+import CategoryModel from '../../components/CategoryModel';
 
 
 
@@ -58,12 +41,13 @@ export default function CategoriesManager() {
   // -----------------------------------------------------------------------------
   // ------------------------- Adding data to db and table ----------------------
 
-  const handleAddRow = () => {
-    var form = document.getElementById('addRowForm').elements;
+  const addRow = () => {
+    var form = document.getElementById('addModelForm').elements;
 
     var data = {}
     for (let i = 0; i < form.length; i++) {
       var item = form.item(i);
+      if (item.name === 'id') continue;
       data[item.name] = item.value;
     }
 
@@ -76,10 +60,84 @@ export default function CategoriesManager() {
         console.log(error);
       });
   };
+
+  // -----------------------------------------------------------------------------
+  // ------------------------------- delete a row --------------------------------
+  const deleteRow = () => {
+    var form = document.getElementById('deleteModelForm').elements;
+    const rowID = parseInt(form['id'].value);
+
+    axios.delete(process.env.REACT_APP_CATEGORIES_URL + rowID + "/delete")
+      .then(function (response) {
+        setRows((prevRows) => {
+          console.log(rowID);
+          var newRows = [];
+          for (let i = 0; i < rows.length; i++) {
+            if (rows[i].id != rowID) {
+              newRows.push(rows[i]);
+            }
+          }
+          return newRows;
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  };
+
+
+  // ----------------------------------------------------------------------------
+  // --------------------------------- update row -------------------------------
+  const updateRow = () => {
+    var form = document.getElementById('updateModelForm').elements;
+    var data = {}
+    for (let i = 0; i < form.length; i++) {
+      var item = form.item(i);
+      // console.log(item.name)
+      if (item.name === 'id') data[item.name] = parseInt(item.value);
+      else data[item.name] = item.value;
+    }
+    console.log(data)
+
+    axios.put(process.env.REACT_APP_CATEGORIES_URL + "update", data)
+      .then(function (response) {
+        setRows((prevRows) => {
+          var newRows = prevRows.map(row =>
+            row.id === parseInt(data.id) ? { ...row, ...data } : row,
+          );
+          console.log(newRows);
+          return newRows;
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  };
+
+
+
+
+  const columns = [
+    { field: 'id', headerName: 'ID', flex: 0.1 },
+    { field: 'name', headerName: 'Name', flex: 0.2 },
+    { field: 'description', headerName: 'Description', flex: 2 },
+    {
+      field: 'actions', headerName: 'Actions', width: 100,
+      renderCell: (params) => (
+        <div style={{ display: 'flex', justifyContent: 'space-around', }}>
+          <Button value={params.row} child={<EditIcon />} model={"updateModel"} />
+          <Button value={params.row} child={<DeleteIcon />} model={'deleteModel'} />
+        </div>
+      ),
+    },
+  ];
+
   return (
     <div>
       <h2>Gestionnaire de categories</h2>
-      <button size="small" type="button" data-bs-toggle="modal" data-bs-target="#myModal">
+      <button size="small" type="button" data-bs-toggle="modal" data-bs-target="#addModel">
         Add a row
       </button>
       <DataGrid
@@ -90,43 +148,10 @@ export default function CategoriesManager() {
         autoHeight {...rows}
       />
 
-      {/* <!-- The Modal --> */}
-      <div className="modal" id="myModal">
-        <div className="modal-dialog">
-          <div className="modal-content">
+      <CategoryModel id={'addModel'} title={'Add a row'} rows={rows} action={addRow} />
+      <CategoryModel id={'updateModel'} title={'Update a row'} rows={rows} action={updateRow} />
+      <CategoryModel id={'deleteModel'} title={'Delete a row'} rows={rows} action={deleteRow} />
 
-            {/* <!-- Modal Header --> */}
-            <div className="modal-header">
-              <h4 className="modal-title">ADD A ROW</h4>
-              <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            {/* <!-- Modal body --> */}
-            <div className="modal-body">
-              <form action="" method="post" id='addRowForm'>
-                <div className='row'>
-                  <div className='col'>
-                    <input className="form-control" name='name' type="text" placeholder='Category Name' />
-                  </div>
-                </div>
-
-                <div className='row'>
-                  <div className='col'>
-                    <input className="form-control" name='description' type="textplace" placeholder='Description' />
-                  </div>
-                </div>
-
-              </form>
-            </div>
-
-            {/* <!-- Modal footer --> */}
-            <div className="modal-footer">
-              <button form='#addRowForm' onClick={handleAddRow} type="button" className="btn btn-danger" data-bs-dismiss="modal">Add row</button>
-            </div>
-
-          </div>
-        </div>
-      </div>
     </div>
   );
 

@@ -3,6 +3,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
+import Button from '../../components/Button';
+import CategoryModel from '../../components/CategoryModel';
+import AccountModel from '../../components/AccountModel';
 
 let action = null;
 
@@ -10,30 +13,7 @@ export default function AccountsManager() {
   // const [action, setAction] = useState(null);
   const [actionText, setActionText] = useState('');
 
-  const handleUpdateRow = e => {
-    const rowToUpdateIndex = e.target.value
-    console.log(rowToUpdateIndex)
-    action = () => {
-      // setRows((prevRows) => {
-      //   const rowToUpdateIndex = e.target.value
-      //   var form = document.getElementById('addRowForm').elements;
 
-      //   var data = {}
-      //   for (let i = 0; i < form.length; i++) {
-      //     var item = form.item(i);
-      //     if (item.value != '')
-      //     data[item.name] = item.value;
-      //   }
-      //   console.log(data + ' // ind = ' + rowToUpdateIndex)
-      //   prevRows.map((row, index) => {
-      //     if (row.id === rowToUpdateIndex) {alert('hello ' + row.id)}
-      //   }
-      //   );
-      //   return rows;
-      // });
-    }
-    setActionText('Update row')
-  }
 
   const columns = [
     { field: 'id', headerName: 'ID', flex: 1 },
@@ -46,13 +26,9 @@ export default function AccountsManager() {
     {
       field: 'actions', headerName: 'Actions', width: 100,
       renderCell: (params) => (
-        <div>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#myModal">
-            <EditIcon />
-          </button>
-          <button value={params.row.id} onClick={handleUpdateRow} >
-            <DeleteIcon />
-          </button>
+        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+          <Button value={params.row} child={<EditIcon />} model={"updateModel"} />
+          <Button value={params.row} child={<DeleteIcon />} model={'deleteModel'} />
         </div>
       ),
     },
@@ -96,6 +72,7 @@ export default function AccountsManager() {
     var data = {}
     for (let i = 0; i < form.length; i++) {
       var item = form.item(i);
+      if (item.name === 'id') continue;
       data[item.name] = item.value;
     }
 
@@ -109,8 +86,56 @@ export default function AccountsManager() {
       });
   };
 
+    // -----------------------------------------------------------------------------
+  // ------------------------------- delete a row --------------------------------
+  const deleteRow = () => {
+    var form = document.getElementById('deleteModelForm').elements;
+    const rowID = parseInt(form['id'].value);
+
+    axios.delete(process.env.REACT_APP_USERS_URL + rowID + "/delete")
+      .then(function (response) {
+        setRows((prevRows) => {
+          console.log(rowID);
+          var newRows = [];
+          for (let i = 0; i < rows.length; i++) {
+            if (rows[i].id != rowID) {
+              newRows.push(rows[i]);
+            }        
+          }
+          return newRows;
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  };
   // ------------------------------------------------------------------------------
 
+  // const handleUpdateRow = e => {
+  //   // const {name, value} = e;
+  //   console.log(e.target.value)
+  //   action = () => {
+  //     // setRows((prevRows) => {
+  //     //   const rowToUpdateIndex = e.target.value
+  //     //   var form = document.getElementById('addRowForm').elements;
+
+  //     //   var data = {}
+  //     //   for (let i = 0; i < form.length; i++) {
+  //     //     var item = form.item(i);
+  //     //     if (item.value != '')
+  //     //     data[item.name] = item.value;
+  //     //   }
+  //     //   console.log(data + ' // ind = ' + rowToUpdateIndex)
+  //     //   prevRows.map((row, index) => {
+  //     //     if (row.id === rowToUpdateIndex) {alert('hello ' + row.id)}
+  //     //   }
+  //     //   );
+  //     //   return rows;
+  //     // });
+  //   }
+  //   setActionText('Update row')
+  // }
 
   const handleAddRow = () => {
     action = addRow;
@@ -122,7 +147,7 @@ export default function AccountsManager() {
     <div>
       <h2>Gestionnaire de comptes </h2>
 
-      <button onClick={handleAddRow} type="button" data-bs-toggle="modal" data-bs-target="#myModal">
+      <button onClick={handleAddRow} type="button" data-bs-toggle="modal" data-bs-target="#addModel">
         Add a row
       </button>
 
@@ -133,67 +158,10 @@ export default function AccountsManager() {
         rowsPerPageOptions={[10]}
         autoHeight {...rows}
       />
-      {/* <!-- The Modal --> */}
-      <div className="modal" id="myModal">
-        <div className="modal-dialog">
-          <div className="modal-content">
 
-            {/* <!-- Modal Header --> */}
-            <div className="modal-header">
-              <h4 className="modal-title">{actionText}</h4>
-              <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            {/* <!-- Modal body --> */}
-            <div className="modal-body">
-              <form action="" method="post" id='addRowForm'>
-                <div className='row'>
-                  <div className='col'>
-                    <input className="form-control" name='firstname' type="text" placeholder='First Name' />
-                  </div>
-                  <div className='col'>
-                    <input className="form-control" name='lastname' type="text" placeholder='Last Name' />
-                  </div>
-                </div>
-                <div className='row'>
-
-                  <div className='col'>
-                    <input className="form-control" name='email' type="text" placeholder='Email' />
-                  </div>
-
-                  <div className='col'>
-                    <input className="form-control" name='password' type="text" placeholder='Password' />
-                  </div>
-
-                </div>
-
-                <div className='row'>
-
-                  <div className='col'>
-                    <input className="form-control" name='phoneNumber' type="text" placeholder='Phone Number' />
-                  </div>
-
-                  {/* <div className='col'>
-                    <label htmlFor="role" className="form-label">Role :</label>
-                    <select className="form-control" name="roles" id="role">
-                      <option value="ADMIN">Admin</option>
-                      <option value="USER">User</option>
-                    </select>
-                  </div> */}
-
-                </div>
-
-              </form>
-            </div>
-
-            {/* <!-- Modal footer --> */}
-            <div className="modal-footer">
-              <button form='#addRowForm' onClick={action} type="button" className="btn btn-danger" data-bs-dismiss="modal">{actionText}</button>
-            </div>
-
-          </div>
-        </div>
-      </div>
+      <AccountModel id={'addModel'} title={'Add a row'} rows={rows} action={addRow}/>
+      <AccountModel id={'updateModel'} title={'Update a row'} rows={rows} />
+      <AccountModel id={'deleteModel'} title={'Delete a row'} rows={rows} action={deleteRow}/>
     </div >
   );
 
