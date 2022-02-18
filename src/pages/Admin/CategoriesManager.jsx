@@ -135,22 +135,26 @@ export default function CategoriesManager() {
   ];
 
   return (
-    <div>
+    <div className='d-flex flex-column'>
       <h2>Gestionnaire de categories</h2>
-      <button size="small" type="button" data-bs-toggle="modal" data-bs-target="#addModel">
-        Add a row
-      </button>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        autoHeight {...rows}
-      />
+      <div>
+        <button size="small" type="button" data-bs-toggle="modal" data-bs-target="#addModel" className="btn btn-success float-end">
+          Ajouter une Categorie
+        </button>
+      </div>
 
-      <CategoryModel id={'addModel'} title={'Add a row'} action={addRow} />
-      <CategoryModel id={'updateModel'} title={'Update a row'} action={updateRow} />
-      <CategoryModel id={'deleteModel'} title={'Delete a row'} action={deleteRow} />
+      <div>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
+          autoHeight {...rows}
+        />
+      </div>
+      <CategoryModel id={'addModel'} title={'Ajouter une categorie'} action={addRow} />
+      <CategoryModel id={'updateModel'} title={'M.a.j une categorie'} action={updateRow} />
+      <CategoryModel id={'deleteModel'} title={'Supprimer une categorie'} action={deleteRow} />
 
     </div>
   );

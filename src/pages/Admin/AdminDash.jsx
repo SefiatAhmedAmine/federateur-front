@@ -102,9 +102,9 @@ export default function AdminDash() {
         width: '100 %',
         justifyContent: 'space-between',
       }} >
-        <FeaturedInfo title="Users" moneyValue={users.length} />
+        <FeaturedInfo title="Comptes" moneyValue={users.length} />
         <FeaturedInfo title="Categories" moneyValue={categories.length} />
-        <FeaturedInfo title="Posts" moneyValue={posts.length} />
+        <FeaturedInfo title="Postes" moneyValue={posts.length} />
       </div>
       <div style={{
         display: 'flex',

@@ -136,24 +136,25 @@ export default function AccountsManager() {
 
   return (
 
-    <div>
+    <div className='d-flex flex-column'>
       <h2>Gestionnaire de comptes </h2>
-
-      <button onClick={addRow} type="button" data-bs-toggle="modal" data-bs-target="#addModel">
-        Add a row
-      </button>
-
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        autoHeight {...rows}
-      />
-
-      <AccountModel id={'addModel'} title={'Add a row'} rows={rows} action={addRow} />
-      <AccountModel id={'updateModel'} title={'Update a row'} rows={rows} action={updateRow} />
-      <AccountModel id={'deleteModel'} title={'Delete a row'} rows={rows} action={deleteRow} />
+      <div>
+        <button onClick={addRow} type="button" data-bs-toggle="modal" data-bs-target="#addModel" className="btn btn-success float-end">
+          Ajouter un compte
+        </button>
+      </div>
+      <div>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
+          autoHeight {...rows}
+        />
+      </div>
+      <AccountModel id={'addModel'} title={'Ajouter un compte'} rows={rows} action={addRow} />
+      <AccountModel id={'updateModel'} title={'M.a.j un compte'} rows={rows} action={updateRow} />
+      <AccountModel id={'deleteModel'} title={'Supprimer un compte'} rows={rows} action={deleteRow} />
     </div >
   );
 

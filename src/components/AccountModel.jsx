@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function AccountModel({id, title, action }) {
+export default function AccountModel({ id, title, action }) {
 
-  
+
   return (
     <div>
       {/* <!-- The Modal --> */}
@@ -18,31 +18,36 @@ export default function AccountModel({id, title, action }) {
 
             {/* <!-- Modal body --> */}
             <div className="modal-body">
-              <form action="" method="post" id={id+"Form"}>
-                <div className='row'>
+              <form action="" method="post" id={id + "Form"}>
+                <div className='row mb-2'>
                   <input type="hidden" name="id" />
                   <div className='col'>
+                    <label class="form-label">First name:</label>
                     <input className="form-control" name='firstname' type="text" placeholder='First Name' />
                   </div>
                   <div className='col'>
+                    <label class="form-label">Last name:</label>
                     <input className="form-control" name='lastname' type="text" placeholder='Last Name' />
                   </div>
                 </div>
-                <div className='row'>
+                <div className='row mb-2'>
 
                   <div className='col'>
+                  <label class="form-label">Email:</label>
                     <input className="form-control" name='email' type="text" placeholder='Email' />
                   </div>
 
                   <div className='col'>
+                  <label class="form-label">Password:</label>
                     <input className="form-control" name='password' type="text" placeholder='Password' />
                   </div>
 
                 </div>
 
-                <div className='row'>
+                <div className='row mb-2'>
 
                   <div className='col'>
+                  <label class="form-label">Phone number:</label>
                     <input className="form-control" name='phoneNumber' type="text" placeholder='Phone Number' />
                   </div>
 

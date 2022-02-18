@@ -18,14 +18,16 @@ export default function CategoryModel({ id, title, action }) {
             <div className="modal-body">
               <form action="" method="post" id={id + "Form"}>
                 <input type="hidden" name="id" />
-                <div className='row'>
+                <div className='row mb-2'>
                   <div className='col'>
+                  <label class="form-label">Category name:</label>
                     <input className="form-control" name='name' type="text" placeholder='Category Name' />
                   </div>
                 </div>
 
-                <div className='row'>
+                <div className='row mb-2'>
                   <div className='col'>
+                  <label class="form-label">Description:</label>
                     <input className="form-control" name='description' type="textplace" placeholder='Description' />
                   </div>
                 </div>
